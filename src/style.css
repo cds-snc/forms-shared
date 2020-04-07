@@ -1,55 +1,26 @@
 @tailwind base;
 
-html {
-  font-size: 62.5%;
-}
-
-h1 {
-  @apply text-xl font-sans pb-10;
-}
-
-h2 {
-  @apply text-lg font-sans pb-6;
-}
-
-a {
-  @apply underline text-base;
-}
-
-p {
-  @apply text-base leading-tight;
-}
-
-li {
-  @apply text-base leading-tight;
-}
-
-.btn-blue {
-  background-color: theme("colors.blue.lighter");
-  @apply py-4 px-5 font-bold no-underline border-b-2;
-}
-
 @tailwind components;
 
 @tailwind utilities;
 
+body{
+  @apply text-xl;
+}
+
 .input {
   border-color: #000;
-  @apply border-solid border-2 py-3 px-2 text-smaller;
+  @apply border-solid border-2 py-3 px-2;
 }
 
 label {
-  @apply block text-smaller pb-2;
+  @apply block pb-2;
 }
 
 @variants focus {
   .input {
     @apply outline-none;
   }
-}
-
-button:focus{
-  outline: none;
 }
 
 /* form(s) */
@@ -67,4 +38,8 @@ button:focus{
 
 .error-message {
   @apply block text-red text-base;
+}
+
+a {
+  text-decoration: underline;
 }

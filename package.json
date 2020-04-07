@@ -26,5 +26,8 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1"
   }
 }
