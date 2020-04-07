@@ -62,11 +62,33 @@
           class="border-l-4 border-solid border-blue-400 bg-blue-200 p-5 mb-10"
         >
           <p class="text-xl pl-10">
-            This application is only a demonstration of the
+            Kitchen sink demonstration of the
             <a href="#">Canadian Digital Service</a>
           </p>
         </div>
         <!-- banner end -->
+
+        <!-- @todo error banner -->
+
+        <div
+          class="border-l-4 border-solid border-red bg-red-100 p-5 mb-10"
+          role="alert"
+        >
+          <h3>
+            Please correct the errors on the page
+          </h3>
+          <ol class="list-decimal list-inside ml-2 py-3" id="formErrors">
+            <li>
+              <a href="#email">Email is required</a>
+            </li>
+
+            <li>
+              <a href="#notify_type">Please select a notification type.</a>
+            </li>
+          </ol>
+        </div>
+
+        <!--  -->
 
         <div>
           <h2 class="text-4xl font-bold pb-5 font-sans">Contact form</h2>
@@ -192,6 +214,39 @@
             <!-- start field 6 -->
             <div class="form-group">
               <label>I agree</label>
+              <div>
+                <label class="inline-flex items-center">
+                  <input
+                    type="radio"
+                    class="text-blue form-radio h-6 w-6"
+                    name="radio-sizes"
+                    value="2"
+                  />
+                  <span class="ml-3 text-lg">Yes</span>
+                </label>
+              </div>
+
+              <div>
+                <label class="inline-flex items-center">
+                  <input
+                    checked
+                    type="radio"
+                    class="text-blue form-radio h-6 w-6"
+                    name="radio-sizes"
+                    value="2"
+                  />
+                  <span class="ml-3 text-lg">No</span>
+                </label>
+              </div>
+            </div>
+            <!-- end field 6-->
+
+            <!-- start field 6 errors-->
+            <div class="form-group form-group-error">
+              <label>I agree</label>
+              <span class="error-message">
+                Can’t be empty
+              </span>
               <div>
                 <label class="inline-flex items-center">
                   <input
