@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-body">
+    <!-- start -->
+
+    <!-- CONTENT -->
+    <!-- start header -->
+    <header></header>
+    <!-- end header -->
+
+    <div class="m-20">
+      <!-- -->
+      <div class="py-10">
+        <h2 class="leading-tight font-bold">Contact form</h2>
+        <!-- -->
+        <form method="post" autocomplete="off" novalidate="">
+          <!-- start field 1 -->
+          <div class="form-group form-group-error">
+            <label for="name">
+              Your name
+            </label>
+            <span class="error-message">
+              Can’t be empty
+            </span>
+            <input
+              class="input focus:shadow-outline w-full lg:w-3/6 form-control-error"
+              id="name"
+              name="name"
+              type="text"
+              value=""
+            />
+          </div>
+          <!-- end field 1 -->
+
+          <!-- start field 2 -->
+          <div class="form-group">
+            <label for="support_type">
+              Request Type
+            </label>
+            <select
+              class="input focus:shadow-outline w-full lg:w-3/6"
+              name="support_type"
+            >
+              <option value="Ask a question">Ask a question</option>
+              <option value="Give feedback">Give feedback</option>
+              <option value="Set up a demo">Set up a demo</option>
+            </select>
+          </div>
+          <!-- end field 2 -->
+
+          <!-- start field 3 -->
+          <div class="form-group">
+            <label for="email_address">
+              Your email
+            </label>
+
+            <input
+              class="input focus:shadow-outline w-full lg:w-3/6"
+              id="email_address"
+              name="email_address"
+              type="email"
+              value=""
+            />
+          </div>
+          <!-- start field 3 -->
+
+          <!-- start field 4 -->
+          <div class="form-group">
+            <label for="feedback">
+              Message
+            </label>
+
+            <textarea
+              class="input focus:shadow-outline w-full lg:w-3/6"
+              id="feedback"
+              name="feedback"
+              rows="8"
+            ></textarea>
+          </div>
+
+          <!-- end field 4 -->
+
+          <!-- start submit -->
+          <div class="mt-10">
+            <button
+              type="submit"
+              class="btn-blue text-base outline-none focus:shadow-outline hover:bg-gray-selected"
+            >
+              Submit
+            </button>
+          </div>
+          <!-- end submit -->
+        </form>
+      </div>
+
+      <!-- -->
+    </div>
+    <!-- end -->
+  </body>
+</html>
