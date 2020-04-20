@@ -2,6 +2,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        "56": "14rem",
         "72": "18rem",
         "84": "21rem",
         "96": "24rem",
@@ -18,8 +19,8 @@ module.exports = {
       body: ["Noto Sans"],
     },
     screens: {
-      xxs: "285px",
-      xs: "350px",
+      xxs: "280px",
+      xs: "325px",
       sm: "450px",
       md: "550px",
       lg: "768px",

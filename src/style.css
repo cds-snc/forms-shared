@@ -13,6 +13,14 @@ body {
   @apply border-solid border-2 py-3 px-2;
 }
 
+input[type="radio"] {
+  @apply form-radio text-blue h-10 w-10 border-2 border-black;
+}
+
+input[type="checkbox"] {
+  @apply form-checkbox text-blue h-10 w-10 border-2 border-black;
+}
+
 label {
   @apply block pb-2;
 }
@@ -25,7 +33,15 @@ label {
 
 /* form(s) */
 .form-group {
-  @apply mb-4;
+  @apply mb-6;
+}
+
+.form-group label {
+  @apply text-xl font-bold mb-2;
+}
+
+.form-group label span {
+  @apply font-normal pl-4 text-lg;
 }
 
 .list-disc {
@@ -45,7 +61,7 @@ label {
 }
 
 .error-message {
-  @apply block text-red text-base;
+  @apply block text-red text-base mb-2;
 }
 
 a {
@@ -54,4 +70,8 @@ a {
 
 h1 {
   @apply border-b border-red text-4xl font-bold pb-1 mb-5 font-sans;
+}
+
+h3 {
+  @apply font-bold;
 }

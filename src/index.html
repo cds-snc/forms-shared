@@ -29,18 +29,18 @@
             <span
               class="py-1 px-2 border-solid border-2 border-black inline-flex mr-5 text-sm"
               >ALPHA</span
-            ><span>This site will change as we test ideas.</span>
+            ><span class="text-base">This site will change as we test ideas.</span>
           </div>
         </div>
         <!-- end phase banner -->
 
         <!-- FIP -->
         <div class="container mx-auto">
-          <div class="flex justify-between py-10">
+          <div class="md:flex justify-between py-10">
             <div class="canada-flag">
               <a href="/" aria-label="Government of Canada">
                 <img
-                  class="w-96"
+                  class="w-84 mb-5 md:mb-0"
                   src="<%=require('./img/canada-ca.svg')%>"
                   alt="Government of Canada"
                 />
@@ -67,7 +67,7 @@
           <h3>
             Please correct the errors on the page
           </h3>
-          <ol class="list-decimal list-inside ml-2 py-3" id="formErrors">
+          <ol class="list-decimal list-inside py-3" id="formErrors">
             <li>
               <a href="#email_address">Email is required</a>
             </li>
@@ -118,7 +118,7 @@
           <form method="post" autocomplete="off" novalidate="">
             <!-- start field 1 -->
             <div class="form-group form-group-error">
-              <label for="name">
+              <label for="name" class="">
                 Your name
               </label>
               <span class="error-message">
@@ -189,18 +189,18 @@
                   <input
                     checked
                     type="checkbox"
-                    class="text-blue form-checkbox h-6 w-6"
+                    class="form-checkbox"
                   />
-                  <span class="ml-3 text-lg">Email</span>
+                  <span>Email</span>
                 </label>
               </div>
               <div>
                 <label class="inline-flex items-center">
                   <input
                     type="checkbox"
-                    class="text-blue form-checkbox h-6 w-6"
+                    class="form-checkbox"
                   />
-                  <span class="ml-3 text-lg">Text Message</span>
+                  <span>Text Message</span>
                 </label>
               </div>
 
@@ -208,9 +208,9 @@
                 <label class="inline-flex items-center">
                   <input
                     type="checkbox"
-                    class="text-blue form-checkbox h-6 w-6"
+                    class="form-checkbox"
                   />
-                  <span class="ml-3 text-lg">Letter</span>
+                  <span>Letter</span>
                 </label>
               </div>
             </div>
@@ -218,16 +218,16 @@
 
             <!-- start field 6 -->
             <div class="form-group">
-              <label>I agree</label>
+              <label>Do you agree?</label>
               <div>
                 <label class="inline-flex items-center">
                   <input
                     type="radio"
-                    class="text-blue form-radio h-6 w-6"
+                    class="form-radio"
                     name="radio-sizes"
                     value="2"
                   />
-                  <span class="ml-3 text-lg">Yes</span>
+                  <span>Yes</span>
                 </label>
               </div>
 
@@ -236,11 +236,11 @@
                   <input
                     checked
                     type="radio"
-                    class="text-blue form-radio h-6 w-6"
+                    class="form-radio"
                     name="radio-sizes"
                     value="2"
                   />
-                  <span class="ml-3 text-lg">No</span>
+                  <span>No</span>
                 </label>
               </div>
             </div>
@@ -248,7 +248,7 @@
 
             <!-- start field 6 errors-->
             <div class="form-group form-group-error">
-              <label>I agree</label>
+              <label>Do you agree?</label>
               <span class="error-message">
                 Can’t be empty
               </span>
@@ -260,7 +260,7 @@
                     name="radio-sizes"
                     value="2"
                   />
-                  <span class="ml-3 text-lg">Yes</span>
+                  <span>Yes</span>
                 </label>
               </div>
 
@@ -273,7 +273,7 @@
                     name="radio-sizes"
                     value="2"
                   />
-                  <span class="ml-3 text-lg">No</span>
+                  <span>No</span>
                 </label>
               </div>
             </div>
