@@ -4,7 +4,7 @@
 
 @tailwind utilities;
 
-body{
+body {
   @apply text-xl;
 }
 
@@ -28,6 +28,14 @@ label {
   @apply mb-4;
 }
 
+.list-disc {
+  @apply pb-2;
+}
+
+.list-disc li {
+  @apply mx-6;
+}
+
 .form-group-error {
   @apply mr-4 pl-4 border-l-4 border-red;
 }
@@ -42,4 +50,8 @@ label {
 
 a {
   text-decoration: underline;
+}
+
+h1 {
+  @apply border-b border-red text-4xl font-bold pb-1 mb-5 font-sans;
 }

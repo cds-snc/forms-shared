@@ -18,9 +18,12 @@ module.exports = {
       body: ["Noto Sans"],
     },
     screens: {
-      sm: "640rem",
-      md: "768px",
-      lg: "1024px",
+      xxs: "285px",
+      xs: "350px",
+      sm: "450px",
+      md: "550px",
+      lg: "768px",
+      xl: "1024px",
     },
     colors: {
       red: {
