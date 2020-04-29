@@ -1,0 +1,61 @@
+{
+  "name": "forms-starter",
+  "version": "1.0.0",
+  "description": "",
+  "author": "CDS",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "dev": "cross-env nodemon --exec npm run dev:dist",
+    "dev:dist": "webpack --config webpack.dev.js && cross-env NODE_ENV=development",
+    "start": "",
+    "lint": "",
+    "prettier": "prettier --write '**/*.{ts,js,css,html}'",
+    "test": "",
+    "test:watch": ""
+  },
+  "dependencies": {
+    "@csstools/postcss-sass": "^4.0.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-template-dir": "^1.4.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.4.2",
+    "cssnano": "^4.1.10",
+    "dotenv": "^8.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "@fullhuman/postcss-purgecss": "^1.3.0",
+    "postcss-loader": "^3.0.0",
+    "tailwindcss": "^1.2.0",
+    "uuid": "^7.0.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-merge": "^4.2.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.2.7",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "webpack-notifier": "^1.8.0"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,njk,scss",
+    "ignore": [
+      "public/dist/**/*.*"
+    ]
+  }
+}
