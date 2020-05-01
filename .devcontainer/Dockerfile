@@ -21,4 +21,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # wp theme activate canadian-digital-service
 # https://developer.wordpress.org/cli/commands/theme/activate/
 
+# gravity forms
+# https://github.com/gravityforms/gravityformscli#installing-and-updating-gravity-forms-and-add-ons
+
 CMD ["apache2-foreground"]
