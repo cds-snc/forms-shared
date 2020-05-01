@@ -18,4 +18,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# wp theme activate canadian-digital-service
+# https://developer.wordpress.org/cli/commands/theme/activate/
+
 CMD ["apache2-foreground"]
