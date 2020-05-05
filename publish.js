@@ -6,6 +6,5 @@ copyfiles([`${input}/*.css`, output], {}, (err) => {
   if (err) {
     console.log(err);
   }
-
   console.log("file(s) copied");
 });

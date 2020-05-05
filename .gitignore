@@ -113,3 +113,5 @@ cdk.context.json
 ./build
 
 notes.md
+
+wordpress/wp-content/plugins

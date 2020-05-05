@@ -7,11 +7,39 @@
  * @package Canadian_Digital_Service
  */
 
+
+
 if ( ! function_exists( 'canadian_digital_service_setup' ) ) :
 	function canadian_digital_service_setup() {
 		load_theme_textdomain( 'canadian-digital-service', get_template_directory() . '/languages' );
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'disable-custom-colors' );
+		add_theme_support('disable-custom-gradients');
+    	add_theme_support('editor-gradient-presets', array());
+
+		add_theme_support( 'editor-color-palette', array(
+			array(
+				'name'  => __( 'Blue', 'canadian-digital-service' ),
+				'slug'  => 'blue',
+				'color'	=> '#26374A',
+			),
+			array(
+				'name'  => __( 'White', 'canadian-digital-service' ),
+				'slug'  => 'white',
+				'color'	=> '#FFF',
+			),
+			array(
+				'name'  => __( 'Red', 'canadian-digital-service' ),
+				'slug'  => 'red',
+				'color'	=> '#b10e1e',
+			),
+			array(
+				'name'  => __( 'Green', 'canadian-digital-service' ),
+				'slug'  => 'green',
+				'color' => '#00703C',
+			),
+		) );
 
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Primary', 'canadian-digital-service' ),
@@ -27,8 +55,9 @@ add_action( 'after_setup_theme', 'canadian_digital_service_setup' );
  * Enqueue scripts and styles.
  */
 function canadian_digital_service_scripts() {
-	#wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
-	wp_enqueue_style( 'canadian-digital-service-style', get_template_directory_uri(). "/public/dist/main.css" );
+	wp_enqueue_script( 'cds-js', get_template_directory_uri() . '/public/js/main.js', array(), '1.0.0', true );
+	wp_register_style('cds-style', get_template_directory_uri(). "/public/dist/main.css" );
+	wp_enqueue_style('cds-style');
 }
 
 add_action( 'wp_enqueue_scripts', 'canadian_digital_service_scripts' );
@@ -41,11 +70,13 @@ function get_favicon($icon) {
 	return get_template_directory_uri()."/public/".$icon;
 }
 
-//
-add_filter( 'gform_field_input', 'map_input', 10, 5 );
 
-function map_input( $input, $field, $value, $lead_id, $form_id ) {
-    print("here");
-    return $input;
+function remove_block_style() {
+    // Register the block editor script.
+    wp_register_script( 'editor-js', get_stylesheet_directory_uri() . "/public/js/editor.js", [ 'wp-blocks', 'wp-edit-post' ] );
+    // register block editor script.
+    register_block_type( 'remove/block-style', [
+        'editor_script' => 'editor-js',
+    ] );
 }
-//
+add_action( 'init', 'remove_block_style' );

@@ -22,7 +22,7 @@ p{
 }
 
 .input:focus {
-  @apply shadow-outline w-full;
+  @apply shadow-outline;
 }
 
 label {
