@@ -14,6 +14,7 @@
 
 get_header();
 ?>
+<div class="container mx-auto mb-10">
 <?php 
 if ( have_posts() ) :
 	
@@ -25,5 +26,6 @@ if ( have_posts() ) :
 	
 endif;
 ?>
+</div>
 <?php
 get_footer();
