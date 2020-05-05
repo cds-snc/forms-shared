@@ -14,7 +14,8 @@ if ( ! function_exists( 'canadian_digital_service_setup' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'canadian-digital-service' ),
+			'primary' => esc_html__( 'Primary', 'canadian-digital-service' ),
+			'footer' => esc_html__( 'Footer', 'canadian-digital-service' ),
 		) );
 
 	}
@@ -39,3 +40,12 @@ function get_image_directory($image) {
 function get_favicon($icon) {
 	return get_template_directory_uri()."/public/".$icon;
 }
+
+//
+add_filter( 'gform_field_input', 'map_input', 10, 5 );
+
+function map_input( $input, $field, $value, $lead_id, $form_id ) {
+    print("here");
+    return $input;
+}
+//

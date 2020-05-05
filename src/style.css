@@ -8,9 +8,21 @@ body{
   @apply text-xl;
 }
 
+h2{
+  @apply text-4xl font-bold pb-5 font-sans;
+}
+
+p{
+  @apply pb-10;
+}
+
 .input {
   border-color: #000;
   @apply border-solid border-2 py-3 px-2;
+}
+
+.input:focus {
+  @apply shadow-outline w-full;
 }
 
 label {

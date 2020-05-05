@@ -111,3 +111,5 @@ cdk.context.json
 .DS_Store
 
 ./build
+
+notes.md
