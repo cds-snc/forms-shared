@@ -83,10 +83,10 @@ add_action( 'init', 'remove_block_style' );
 
 //
 if( !is_admin() ){
-add_filter( 'gform_field_container', 'my_field_container', 10, 6 );
-function my_field_container( $field_container, $field, $form, $css_class, $style, $field_content ) {
-    return '<div class="form-group">{FIELD_CONTENT}</div>';
-}
+	add_filter( 'gform_field_container', 'my_field_container', 10, 6 );
+	function my_field_container( $field_container, $field, $form, $css_class, $style, $field_content ) {
+		return '<div class="form-group">{FIELD_CONTENT}</div>';
+	}
 }
 
 //
@@ -111,8 +111,10 @@ if( !is_admin() ){
 			if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
 				
 				// do something
+				// echo "=== ".$field['type'] ."===";
 				
 			}
+
 			// Select.
 			if ( 'select' === $field['type'] || 'multiselect' === $field['type'] ) {
 				$dom = new domDocument();
@@ -125,6 +127,7 @@ if( !is_admin() ){
 				$label->setAttribute("class", "");
 				$content = $dom->saveHTML($label).$dom->saveHTML($select);
 			}
+
 			// Text
 			if ( 'text' === $field['type'] ) {
 				$dom = new domDocument();
@@ -158,7 +161,7 @@ if( !is_admin() ){
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
-			// Phone
+			// Number i.e. extension
 			if ( 'number' === $field['type']  ) {
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
@@ -240,6 +243,14 @@ if( !is_admin() ){
 
 				$content = $radio_out;
 			}
+
+
+			// Date
+			if ( 'date' === $field['type'] ) {
+				//$content = "date";
+			}
+
+			
 
 
 
