@@ -109,15 +109,19 @@ if( !is_admin() ){
 			);
 			if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
 				
-				// $content = str_replace( 'class=\'small', 'class=\'form-control form-control-sm', $content );
-				// $content = str_replace( 'class=\'medium', 'class=\'form-control', $content );
-				// $content = str_replace( 'class=\'large', 'class=\'form-control form-control-lg', $content );
+				// do something
 			}
 			// Select.
 			if ( 'select' === $field['type'] || 'multiselect' === $field['type'] || 'post_category' === $field['type'] ) {
-				// $content = str_replace( 'class=\'small', 'class=\'custom-select custom-select-sm', $content );
-				// $content = str_replace( 'class=\'medium', 'class=\'custom-select', $content );
-				// $content = str_replace( 'class=\'large', 'class=\'custom-select custom-select-lg', $content );
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'. $content );
+				$xpath = new DomXPath($dom);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_select")]')->item(0);
+				$select = $el->firstChild;
+				$select->setAttribute("class", "input lg:w-3/6");
+				$label = $el->previousSibling;
+				$label->setAttribute("class", "");
+				$content = $dom->saveHTML($label).$dom->saveHTML($select);
 			}
 			// Text
 			if ( 'text' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
@@ -131,7 +135,6 @@ if( !is_admin() ){
 			}
 			// Textarea.
 			if ( 'textarea' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
-
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
 				$xpath = new DomXPath($dom);
@@ -139,21 +142,17 @@ if( !is_admin() ){
 				$el = $xpath->query('//div[contains(@class, "ginput_container_textarea")]')->item(0)->firstChild;
 				$el->setAttribute("class", "input focus:shadow-outline w-full lg:w-3/6");
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
-				
 			}
 			// Checkbox.
-			if ( 'checkbox' === $field['type'] ) {
-				
+			if ( 'checkbox' === $field['type'] ) {	
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content);
 				$xpath = new DomXPath($dom);
 				$checkboxes = $xpath->query('//ul[contains(@class, "gfield_checkbox")]//li//input[@type="checkbox"]');
-
 				$checkboxes_out = "";
 				$label= $xpath->query('//label', $checkboxes->item(0));
 				$checkboxes_out = "<label>".$label->item(0)->nodeValue."</label>";
 
-				
 				foreach ($checkboxes as $checkboxItem) {
 					$checkboxes_out.= "<div>";
 					$checkboxes_out.= "<label class='inline-flex items-center'>";
@@ -170,7 +169,6 @@ if( !is_admin() ){
 			}
 			// Radio.
 			if ( 'radio' === $field['type'] ) {
-
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content);
 				$xpath = new DomXPath($dom);
@@ -198,5 +196,3 @@ if( !is_admin() ){
 		}, 10, 5
 	);
 };
-
-//
