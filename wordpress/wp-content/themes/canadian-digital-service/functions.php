@@ -124,18 +124,22 @@ if( !is_admin() ){
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
 				$xpath = new DomXPath($dom);
-				
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_text")]')->item(0)->firstChild;
 				$el->setAttribute("class", "input w-full lg:w-3/6");
-
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 			// Textarea.
 			if ( 'textarea' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
-				// $content = str_replace( 'class=\'textarea small', 'class=\'form-control form-control-sm textarea', $content );
-				// $content = str_replace( 'class=\'textarea medium', 'class=\'form-control textarea', $content );
-				// $content = str_replace( 'class=\'textarea large', 'class=\'form-control form-control-lg textarea', $content );
+
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_textarea")]')->item(0)->firstChild;
+				$el->setAttribute("class", "input focus:shadow-outline w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+				
 			}
 			// Checkbox.
 			if ( 'checkbox' === $field['type'] ) {
