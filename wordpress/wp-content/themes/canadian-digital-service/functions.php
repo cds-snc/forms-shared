@@ -247,7 +247,16 @@ if( !is_admin() ){
 
 			// Date
 			if ( 'date' === $field['type'] ) {
-				//$content = "date";
+				
+				
+
+				$content = str_replace(
+					'<input', 
+					'<input class="input focus:shadow-outline w-full lg:w-3/6"', 	
+					$content
+				  );
+				
+				
 			}
 
 			
