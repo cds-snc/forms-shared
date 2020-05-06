@@ -107,12 +107,14 @@ if( !is_admin() ){
 				'address',
 				'post_category',
 			);
+
 			if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
 				
 				// do something
+				
 			}
 			// Select.
-			if ( 'select' === $field['type'] || 'multiselect' === $field['type'] || 'post_category' === $field['type'] ) {
+			if ( 'select' === $field['type'] || 'multiselect' === $field['type'] ) {
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'. $content );
 				$xpath = new DomXPath($dom);
@@ -124,7 +126,7 @@ if( !is_admin() ){
 				$content = $dom->saveHTML($label).$dom->saveHTML($select);
 			}
 			// Text
-			if ( 'text' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
+			if ( 'text' === $field['type'] ) {
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
 				$xpath = new DomXPath($dom);
@@ -133,8 +135,20 @@ if( !is_admin() ){
 				$el->setAttribute("class", "input w-full lg:w-3/6");
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
+
+			// Website
+			if ( 'website' === $field['type']  ) {
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_website")]//input')->item(0);
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+			}
+
 			// Textarea.
-			if ( 'textarea' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
+			if ( 'textarea' === $field['type']) {
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
 				$xpath = new DomXPath($dom);
@@ -143,6 +157,7 @@ if( !is_admin() ){
 				$el->setAttribute("class", "input focus:shadow-outline w-full lg:w-3/6");
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
+			
 			// Checkbox.
 			if ( 'checkbox' === $field['type'] ) {	
 				$dom = new domDocument();
@@ -167,6 +182,7 @@ if( !is_admin() ){
 				$content = $checkboxes_out;
 				
 			}
+			
 			// Radio.
 			if ( 'radio' === $field['type'] ) {
 				$dom = new domDocument();
@@ -191,6 +207,8 @@ if( !is_admin() ){
 
 				$content = $radio_out;
 			}
+
+
 
 			return $content;
 		}, 10, 5
