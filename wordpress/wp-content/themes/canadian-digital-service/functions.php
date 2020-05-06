@@ -147,6 +147,39 @@ if( !is_admin() ){
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
+			// Phone
+			if ( 'phone' === $field['type']  ) {
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_phone")]//input')->item(0);
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+			}
+
+			// Phone
+			if ( 'number' === $field['type']  ) {
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_number")]//input')->item(0);
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+			}
+
+			// Phone
+			if ( 'email' === $field['type']  ) {
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_email")]//input')->item(0);
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+			}
+
 			// Textarea.
 			if ( 'textarea' === $field['type']) {
 				$dom = new domDocument();
