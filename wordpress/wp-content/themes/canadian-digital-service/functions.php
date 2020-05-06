@@ -82,98 +82,117 @@ function remove_block_style() {
 add_action( 'init', 'remove_block_style' );
 
 //
-
+if( !is_admin() ){
 add_filter( 'gform_field_container', 'my_field_container', 10, 6 );
 function my_field_container( $field_container, $field, $form, $css_class, $style, $field_content ) {
     return '<div class="form-group">{FIELD_CONTENT}</div>';
 }
+}
 
 //
+if( !is_admin() ){
+	
+	add_filter(
+		'gform_field_content', function ( $content, $field, $value, $lead_id, $form_id ) {
+			// Add .form-control to most inputs.
+			$exclude_formcontrol = array(
+				'hidden',
+				'post_image',
+				'email',
+				'fileupload',
+				'list',
+				'multiselect',
+				'select',
+				'html',
+				'address',
+				'post_category',
+			);
+			if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
+				
+				// $content = str_replace( 'class=\'small', 'class=\'form-control form-control-sm', $content );
+				// $content = str_replace( 'class=\'medium', 'class=\'form-control', $content );
+				// $content = str_replace( 'class=\'large', 'class=\'form-control form-control-lg', $content );
+			}
+			// Select.
+			if ( 'select' === $field['type'] || 'multiselect' === $field['type'] || 'post_category' === $field['type'] ) {
+				// $content = str_replace( 'class=\'small', 'class=\'custom-select custom-select-sm', $content );
+				// $content = str_replace( 'class=\'medium', 'class=\'custom-select', $content );
+				// $content = str_replace( 'class=\'large', 'class=\'custom-select custom-select-lg', $content );
+			}
+			// Text
+			if ( 'text' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
+				$xpath = new DomXPath($dom);
+				
+				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
+				$el = $xpath->query('//div[contains(@class, "ginput_container_text")]')->item(0)->firstChild;
+				$el->setAttribute("class", "input w-full lg:w-3/6");
 
-add_filter(
-	'gform_field_content', function ( $content, $field, $value, $lead_id, $form_id ) {
-		// Add .form-control to most inputs.
-		$exclude_formcontrol = array(
-			'hidden',
-			'post_image',
-			'email',
-			'fileupload',
-			'list',
-			'multiselect',
-			'select',
-			'html',
-			'address',
-			'post_category',
-		);
-		if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
-			
-			// $content = str_replace( 'class=\'small', 'class=\'form-control form-control-sm', $content );
-			// $content = str_replace( 'class=\'medium', 'class=\'form-control', $content );
-			// $content = str_replace( 'class=\'large', 'class=\'form-control form-control-lg', $content );
-		}
-		// Select.
-		if ( 'select' === $field['type'] || 'multiselect' === $field['type'] || 'post_category' === $field['type'] ) {
-			// $content = str_replace( 'class=\'small', 'class=\'custom-select custom-select-sm', $content );
-			// $content = str_replace( 'class=\'medium', 'class=\'custom-select', $content );
-			// $content = str_replace( 'class=\'large', 'class=\'custom-select custom-select-lg', $content );
-		}
-		// Text
-		if ( 'text' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
-			$dom = new domDocument();
-			$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
-			$xpath = new DomXPath($dom);
-			
-			$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
-			$el = $xpath->query('//div[contains(@class, "ginput_container_text")]')->item(0)->firstChild;
-			$el->setAttribute("class", "input w-full lg:w-3/6");
+				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+			}
+			// Textarea.
+			if ( 'textarea' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
+				// $content = str_replace( 'class=\'textarea small', 'class=\'form-control form-control-sm textarea', $content );
+				// $content = str_replace( 'class=\'textarea medium', 'class=\'form-control textarea', $content );
+				// $content = str_replace( 'class=\'textarea large', 'class=\'form-control form-control-lg textarea', $content );
+			}
+			// Checkbox.
+			if ( 'checkbox' === $field['type'] ) {
+				
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content);
+				$xpath = new DomXPath($dom);
+				$checkboxes = $xpath->query('//ul[contains(@class, "gfield_checkbox")]//li//input[@type="checkbox"]');
 
-			$content = $dom->saveHTML($label).$dom->saveHTML($el);
-		}
-		// Textarea.
-		if ( 'textarea' === $field['type'] || 'post_content' === $field['type'] || 'post_excerpt' === $field['type'] ) {
-			// $content = str_replace( 'class=\'textarea small', 'class=\'form-control form-control-sm textarea', $content );
-			// $content = str_replace( 'class=\'textarea medium', 'class=\'form-control textarea', $content );
-			// $content = str_replace( 'class=\'textarea large', 'class=\'form-control form-control-lg textarea', $content );
-		}
-		// Checkbox.
-		if ( 'checkbox' === $field['type'] ) {
-			
-			// $content = str_replace( '<ul>', '', $content );
-			//$content = str_replace( '</ul>', '', $content );
-			//$content = str_replace( '<li', '<div', $content );
-			// $content = str_replace( 'li class=\'', 'li class=\'custom-control custom-checkbox ', $content );
-			// $content = str_replace( '<input ', '<input class=\'custom-control-input\' ', $content );
-			// $content = str_replace( '<label for', '<label class=\'custom-control-label\' for', $content );
-			
-		}
-		// Radio.
-		if ( 'radio' === $field['type'] ) {
+				$checkboxes_out = "";
+				$label= $xpath->query('//label', $checkboxes->item(0));
+				$checkboxes_out = "<label>".$label->item(0)->nodeValue."</label>";
 
-			$dom = new domDocument();
-			$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content);
-			$xpath = new DomXPath($dom);
-			$radios= $xpath->query('//ul[contains(@class, "gfield_radio")]//li' );
-			$radio_out = "";
-			$label= $xpath->query('//label', $radios->item(0));
-			$radio_out = "<label>".$label->item(0)->nodeValue."</label>";
+				
+				foreach ($checkboxes as $checkboxItem) {
+					$checkboxes_out.= "<div>";
+					$checkboxes_out.= "<label class='inline-flex items-center'>";
+					$label = $checkboxItem->nextSibling->nodeValue;
+					$checkboxItem->setAttribute("class", "text-blue form-checkbox h-6 w-6");
+					$checkboxes_out.=$dom->saveHTML($checkboxItem);
+					$checkboxes_out.="<span class='ml-3 text-lg'>".$label."</span>";
+					$checkboxes_out.= "</label>";
+					$checkboxes_out.= "</div>";
+				}
+				
+				$content = $checkboxes_out;
+				
+			}
+			// Radio.
+			if ( 'radio' === $field['type'] ) {
 
-			foreach ($radios as $radioItem) {
-				$radio_out.= "<div>";
-				$radio_out.= "<label class='inline-flex items-center'>";
-				$label = $radioItem->lastChild;
-				$radio = $radioItem->firstChild;
-				$radio->setAttribute("class", "text-blue form-radio h-6 w-6");
-				$radio_out.=$dom->saveHTML($radio);
-				$radio_out.="<span class='ml-3 text-lg'>".$label->nodeValue."</span>";
-				$radio_out.= "</label>";
-				$radio_out.= "</div>";
+				$dom = new domDocument();
+				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content);
+				$xpath = new DomXPath($dom);
+				$radios = $xpath->query('//ul[contains(@class, "gfield_radio")]//li' );
+				$radio_out = "";
+				$label= $xpath->query('//label', $radios->item(0));
+				$radio_out = "<label>".$label->item(0)->nodeValue."</label>";
+
+				foreach ($radios as $radioItem) {
+					$radio_out.= "<div>";
+					$radio_out.= "<label class='inline-flex items-center'>";
+					$label = $radioItem->lastChild;
+					$radio = $radioItem->firstChild;
+					$radio->setAttribute("class", "text-blue form-radio h-6 w-6");
+					$radio_out.=$dom->saveHTML($radio);
+					$radio_out.="<span class='ml-3 text-lg'>".$label->nodeValue."</span>";
+					$radio_out.= "</label>";
+					$radio_out.= "</div>";
+				}
+
+				$content = $radio_out;
 			}
 
-			$content = $radio_out;
-		}
-
-		return $content;
-	}, 10, 5
-);
+			return $content;
+		}, 10, 5
+	);
+};
 
 //
