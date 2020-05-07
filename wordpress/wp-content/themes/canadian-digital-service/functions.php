@@ -57,7 +57,9 @@ add_action( 'after_setup_theme', 'canadian_digital_service_setup' );
 function canadian_digital_service_scripts() {
 	wp_enqueue_script( 'cds-js', get_template_directory_uri() . '/public/js/main.js', array(), '1.0.0', true );
 	wp_register_style('cds-style', get_template_directory_uri(). "/public/dist/main.css" );
+	wp_register_style('theme-style', get_template_directory_uri(). "/public/css/theme.css" );
 	wp_enqueue_style('cds-style');
+	wp_enqueue_style('theme-style');
 }
 
 add_action( 'wp_enqueue_scripts', 'canadian_digital_service_scripts' );
