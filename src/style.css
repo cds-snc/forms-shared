@@ -8,6 +8,34 @@ body {
   @apply text-xl;
 }
 
+a {
+  text-decoration: underline;
+}
+
+button {
+  @apply border-b-4 border-black py-3 px-5 font-bold text-lg no-underline text-white bg-blue outline-none;
+}
+
+button:hover {
+  @apply bg-blue-400;
+}
+
+button:focus {
+  @apply shadow-outline;
+}
+
+.stepper h2 {
+  @apply text-gray-600;
+}
+
+h1 {
+  @apply border-b border-red text-4xl font-bold pb-1 mb-5 font-sans;
+}
+
+h3 {
+  @apply font-bold;
+}
+
 .input {
   border-color: #000;
   @apply border-solid border-2 py-3 px-2;
@@ -64,10 +92,8 @@ label {
   @apply block text-red text-base mb-2;
 }
 
-a {
-  text-decoration: underline;
-}
 
+<<<<<<< HEAD
 h1 {
   @apply border-b border-red text-4xl font-bold pb-1 mb-5 font-sans;
 }
@@ -90,3 +116,5 @@ input[type=button]:hover{
 }
 
 
+=======
+>>>>>>> Stepper + default button styles
