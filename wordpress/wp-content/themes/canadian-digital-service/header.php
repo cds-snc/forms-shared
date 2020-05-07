@@ -15,33 +15,39 @@
     </head>
     <body>
       <div>
-        <!-- start header -->
-        <header>
-          <!-- phase banner -->
-          <div class="bg-gray py-3">
-            <div class="container mx-auto">
-              <span class="py-1 px-2 border-solid border-2 border-black inline-flex mr-5 text-sm">ALPHA</span>
-              <span>This site will change as we test ideas.</span>
+
+            <!-- start header -->
+            <header>
+        <!-- phase banner -->
+        <div class="bg-gray py-3">
+          <div class="container mx-auto px-100">
+            <span
+              class="py-1 px-2 border-solid border-2 border-black inline-flex mr-5 text-sm"
+              >ALPHA</span
+            ><span class="text-base">This site will change as we test ideas.</span>
+          </div>
+        </div>
+        <!-- end phase banner -->
+
+        <!-- FIP -->
+        <div class="container mx-auto">
+          <div class="md:flex justify-between py-10">
+            <div class="canada-flag">
+              <a href="/" aria-label="Government of Canada">
+                <img
+                  class="w-84 mb-5 md:mb-0"
+                  src="<?php echo get_image_directory("sig-blk-en.svg") ?>"
+                  alt="Government of Canada"
+                />
+              </a>
+            </div>
+
+            <div>
+              <a href="#" lang="fr" class="text-xl">Français</a>
             </div>
           </div>
-          <!-- end phase banner -->
-          <!-- FIP -->
-          <div class="container mx-auto">
-            <div class="flex justify-between py-10">
-              <div class="canada-flag">
-                <a href="/" aria-label="{{__('Government of Canada')}}">
-                  <img
-                    class="w-96"
-                    src="<?php echo get_image_directory("sig-blk-en.svg") ?>"
-                    alt="{{__('Government of Canada')}}"
-                  />
-                </a>
-              </div>
-              <div>
-                <a href="#" lang="fr" class="text-xl">Français</a>
-              </div>
-            </div>
-          </div>
-          <!-- end FIP -->
-        </header>
-        <!-- end header -->
+        </div>
+
+        <!-- end FIP -->
+      </header>
+      <!-- end header -->

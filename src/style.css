@@ -84,3 +84,18 @@ h1 {
 h3 {
   @apply font-bold;
 }
+
+input[type=button]{
+  @apply border-b-4 border-black py-3 px-5 font-bold text-lg no-underline text-white bg-blue outline-none;
+}
+
+input[type=button]:focus{
+  @apply shadow-outline;
+}
+
+
+input[type=button]:hover{
+  @apply bg-blue-400;
+}
+
+
