@@ -85,7 +85,12 @@ add_action( 'init', 'remove_block_style' );
 if( !is_admin() ){
 	add_filter( 'gform_field_container', 'my_field_container', 10, 6 );
 	function my_field_container( $field_container, $field, $form, $css_class, $style, $field_content ) {
-		return '<div class="form-group">{FIELD_CONTENT}</div>';
+		$class = "form-group";
+		if ($field->failed_validation) {
+			$class.=" form-group-error";
+		}
+
+		return sprintf('<div class="%s">{FIELD_CONTENT}</div>', $class);
 	}
 }
 
@@ -108,10 +113,16 @@ if( !is_admin() ){
 				'post_category',
 			);
 
+			$class = "";
+
 			if ( ! in_array( $field['type'], $exclude_formcontrol, true ) ) {
 				
 				// do something
 				// echo "=== ".$field['type'] ."===";
+
+				if ( $field->failed_validation ) {
+					$class.="form-control-error ";
+				}
 				
 			}
 
@@ -130,13 +141,19 @@ if( !is_admin() ){
 
 			// Text
 			if ( 'text' === $field['type'] ) {
+
+				$error = "";
+
+				
+				$class.="input w-full lg:w-3/6";
+
 				$dom = new domDocument();
 				$dom->loadHTML( '<?xml encoding="utf-8" ?>'.$content );
 				$xpath = new DomXPath($dom);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_text")]')->item(0)->firstChild;
-				$el->setAttribute("class", "input w-full lg:w-3/6");
-				$content = $dom->saveHTML($label).$dom->saveHTML($el);
+				$el->setAttribute("class", $class);
+				$content = $error.$dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
 			// Website
@@ -146,7 +163,8 @@ if( !is_admin() ){
 				$xpath = new DomXPath($dom);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_website")]//input')->item(0);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
-				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$class.="input w-full lg:w-3/6";
+				$el->setAttribute("class", $class);
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
@@ -157,7 +175,8 @@ if( !is_admin() ){
 				$xpath = new DomXPath($dom);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_phone")]//input')->item(0);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
-				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$class.="input w-full lg:w-3/6";
+				$el->setAttribute("class", $class);
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
@@ -168,7 +187,8 @@ if( !is_admin() ){
 				$xpath = new DomXPath($dom);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_number")]//input')->item(0);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
-				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$class.="input w-full lg:w-3/6";
+				$el->setAttribute("class", $class);
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
@@ -179,7 +199,8 @@ if( !is_admin() ){
 				$xpath = new DomXPath($dom);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_email")]//input')->item(0);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
-				$el->setAttribute("class", "input w-full lg:w-3/6");
+				$class.="input w-full lg:w-3/6";
+				$el->setAttribute("class", $class);
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 
@@ -190,7 +211,8 @@ if( !is_admin() ){
 				$xpath = new DomXPath($dom);
 				$label = $xpath->query('//label[contains(@class, "gfield_label")]' )->item(0);
 				$el = $xpath->query('//div[contains(@class, "ginput_container_textarea")]')->item(0)->firstChild;
-				$el->setAttribute("class", "input focus:shadow-outline w-full lg:w-3/6");
+				$class.="input focus:shadow-outline w-full lg:w-3/6";
+				$el->setAttribute("class", $class);
 				$content = $dom->saveHTML($label).$dom->saveHTML($el);
 			}
 			
@@ -247,23 +269,50 @@ if( !is_admin() ){
 
 			// Date
 			if ( 'date' === $field['type'] ) {
-				
-				
-
 				$content = str_replace(
 					'<input', 
 					'<input class="input focus:shadow-outline w-full lg:w-3/6"', 	
 					$content
 				  );
 				
-				
 			}
-
-			
-
-
 
 			return $content;
 		}, 10, 5
 	);
 };
+
+//
+
+add_filter( 'gform_validation_message', function ( $message, $form ) {
+	
+	
+	if ( gf_upgrade()->get_submissions_block() ) {
+        return $message;
+	}
+	
+	/*
+	<div class="border-l-4 border-solid border-red bg-red-100 p-5 mb-10" role="alert">
+		<h3>Please correct the errors on the page</h3>
+			<ol class="list-decimal list-inside ml-2 py-3" id="formErrors">
+				<li><a href="#email">Email is required</a></li>
+				<li><a href="#notify_type">Please select a notification type.</a></li>
+			</ol>
+		</div>
+	*/
+ 
+	$message = "<div class='border-l-4 border-solid border-red bg-red-100 p-5 mb-10' role='alert'><h3>Please correct the errors on the page</h3>";
+    $message .= "<ol class='list-decimal list-inside ml-2 py-3' id='formErrors'>";
+ 
+    foreach ( $form['fields'] as $field ) {
+        if ( $field->failed_validation ) {
+			$field_id =   'input_' . $form["id"] . "_".$field["id"];
+            $message .= sprintf( '<li><a href="#%s">%s - %s</a></li>',$field_id,  GFCommon::get_label( $field ), $field->validation_message );
+        }
+    }
+ 
+    $message .= '</ol></div>';
+ 
+    return $message;
+}, 10, 2 );
+//
