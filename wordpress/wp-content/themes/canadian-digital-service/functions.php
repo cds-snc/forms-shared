@@ -84,15 +84,16 @@ function remove_block_style() {
 add_action( 'init', 'remove_block_style' );
 
 //
-if( !is_admin() ){
+if( !is_admin()){
 	add_filter( 'gform_field_container', 'my_field_container', 10, 6 );
 	function my_field_container( $field_container, $field, $form, $css_class, $style, $field_content ) {
-		$class = "form-group";
+		$field_id =   'field_' . $form["id"] . "_".$field["id"];
+		$class = "form-group ".$css_class;
 		if ($field->failed_validation) {
 			$class.=" form-group-error";
 		}
 
-		return sprintf('<div class="%s">{FIELD_CONTENT}</div>', $class);
+		return sprintf('<div id="%s" class="%s" style="%s">{FIELD_CONTENT}</div>', $field_id, $class, $style);
 	}
 }
 
