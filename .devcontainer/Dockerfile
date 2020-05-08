@@ -24,4 +24,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # gravity forms
 # https://github.com/gravityforms/gravityformscli#installing-and-updating-gravity-forms-and-add-ons
 
-CMD ["apache2-foreground"]
+COPY ./entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/usr/bin/env"]
+CMD ["bash", "/entrypoint.sh"]
