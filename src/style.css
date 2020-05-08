@@ -8,19 +8,56 @@ body {
   @apply text-xl;
 }
 
-h2{
-  @apply text-4xl font-bold pb-5 font-sans;
+p {
+  @apply mb-5 leading-8;
 }
 
-p{
-  @apply pb-10;
+a {
+  text-decoration: underline;
+}
+
+h1 {
+  @apply border-b border-red text-4xl font-bold pb-1 mb-10 font-sans;
+}
+
+h2 {
+  @apply text-3xl mb-5 font-bold;
+}
+
+h3 {
+  @apply text-2xl mb-5 font-bold;
+}
+
+ol, ul {
+  list-style: disc;
+  @apply mb-5;
+}
+
+li {
+  @apply ml-5 pl-2 mb-1;
+}
+
+ul.menu {
+  list-style: none;
+}
+
+ul.menu li {
+  @apply ml-0 pl-0;
+}
+
+h4,
+h5 {
+  @apply font-bold;
+}
+
+h3.gf_progressbar_title {
+  @apply text-gray-700 font-normal;
 }
 
 .input {
   border-color: #000;
   @apply border-solid border-2 py-3 px-2;
 }
-
 
 input[type="radio"] {
   @apply form-radio text-blue h-10 w-10 border-2 border-black;
@@ -50,7 +87,7 @@ label {
 }
 
 .form-group label span {
-  @apply font-normal pl-4 text-lg;
+  @apply font-normal pl-2 text-lg;
 }
 
 .list-disc {
@@ -73,29 +110,26 @@ label {
   @apply block text-red text-base mb-2;
 }
 
-a {
-  text-decoration: underline;
+input[type="button"] {
+  @apply border-b-4 border-black py-3 px-5 mr-2 font-bold text-lg no-underline text-white bg-blue outline-none;
 }
 
-h1 {
-  @apply border-b border-red text-4xl font-bold pb-1 mb-5 font-sans;
-}
-
-h3 {
-  @apply font-bold;
-}
-
-input[type=button]{
-  @apply border-b-4 border-black py-3 px-5 font-bold text-lg no-underline text-white bg-blue outline-none;
-}
-
-input[type=button]:focus{
+input[type="button"]:focus {
   @apply shadow-outline;
 }
 
-
-input[type=button]:hover{
+input[type="button"]:hover {
   @apply bg-blue-400;
 }
 
+input[type="text"] {
+  @apply mb-2;
+}
 
+select {
+  @apply h-12;
+}
+
+input[type="submit"].gform_button.button {
+
+}

@@ -45,6 +45,10 @@ module.exports = {
       gray: {
         default: "#EEE",
         selected: "#e1e4e7",
+        500: "#a0aec0",
+        600: "#718096",
+        700: "#4a5568",
+        800: "#2d3748;",
       },
       yellow: {
         default: "#ffbf47",
@@ -57,9 +61,6 @@ module.exports = {
         default: "#000",
       },
     },
-  },
-  purge: {
-    content: ["./src/**/*.html"],
   },
   plugins: [require("@tailwindcss/custom-forms")],
 };
