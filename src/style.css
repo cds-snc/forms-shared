@@ -30,11 +30,19 @@ h3 {
 
 ol, ul {
   list-style: disc;
-  @apply pl-5 mb-5;
+  @apply mb-5;
 }
 
-.menu ul {
+li {
+  @apply ml-5 pl-2;
+}
+
+ul.menu {
   list-style: none;
+}
+
+ul.menu li {
+  @apply ml-0 pl-0;
 }
 
 h4,
