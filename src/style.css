@@ -9,7 +9,7 @@ body {
 }
 
 p {
-  @apply mb-5;
+  @apply mb-5 leading-8;
 }
 
 a {
@@ -34,7 +34,7 @@ ol, ul {
 }
 
 li {
-  @apply ml-5 pl-2;
+  @apply ml-5 pl-2 mb-1;
 }
 
 ul.menu {
