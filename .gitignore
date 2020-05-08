@@ -115,3 +115,6 @@ cdk.context.json
 notes.md
 
 wordpress/wp-content/plugins
+wordpress/wp-content/uploads
+
+wordpress/wp-content/languages

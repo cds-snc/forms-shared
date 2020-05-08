@@ -29,7 +29,9 @@
             <span
               class="py-1 px-2 border-solid border-2 border-black inline-flex mr-5 text-sm"
               >ALPHA</span
-            ><span class="text-base">This site will change as we test ideas.</span>
+            ><span class="text-base"
+              >This site will change as we test ideas.</span
+            >
           </div>
         </div>
         <!-- end phase banner -->
@@ -58,7 +60,6 @@
       <!-- end header -->
 
       <div class="container mx-auto mb-10">
-
         <!-- @todo error banner -->
         <div
           class="border-l-4 border-solid border-red bg-red-100 p-5 mb-10"
@@ -78,9 +79,10 @@
           </ol>
         </div>
         <!--  -->
+        <div><h3 class="gf_progressbar_title">(Step 1 of 2)</h3></div>
 
 
-                   <div>
+      <div>
         <h1>Example contact form</h1>
       </div>
 
@@ -111,7 +113,7 @@
             </ul>
           </div>
 
-          <p>
+          <p class="pb-10">
             Please fill out the information below so that we may review your
             grant application. All users will receive a confirmation email about
             their application and appointment. Only selected candidates will be
@@ -143,7 +145,7 @@
                 Request Type
               </label>
               <select
-                class="input lg:w-3/6"  
+                class="input focus:shadow-outline w-full lg:w-3/6"
                 name="support_type"
               >
                 <option value="Ask a question">Ask a question</option>
@@ -189,30 +191,20 @@
               <label>How should we notify you?</label>
               <div>
                 <label class="inline-flex items-center">
-                  <input
-                    checked
-                    type="checkbox"
-                    class="form-checkbox"
-                  />
+                  <input checked type="checkbox" class="form-checkbox" />
                   <span>Email</span>
                 </label>
               </div>
               <div>
                 <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox"
-                  />
+                  <input type="checkbox" class="form-checkbox" />
                   <span>Text Message</span>
                 </label>
               </div>
 
               <div>
                 <label class="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    class="form-checkbox"
-                  />
+                  <input type="checkbox" class="form-checkbox" />
                   <span>Letter</span>
                 </label>
               </div>
@@ -284,12 +276,11 @@
 
             <!-- start submit -->
             <div class="mt-10">
-              <button
-                type="submit"
-                class="border-b-4 border-black py-3 px-5 font-bold text-lg no-underline text-white bg-blue outline-none focus:shadow-outline hover:bg-blue-400"
-              >
-                Submit
-              </button>
+              <input
+                type="submit" 
+                value="Submit" 
+                class="gform_button button"
+              />
             </div>
             <!-- end submit -->
           </form>
