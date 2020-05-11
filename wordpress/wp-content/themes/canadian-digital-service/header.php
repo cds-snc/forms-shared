@@ -16,8 +16,8 @@
     <body>
       <div>
 
-            <!-- start header -->
-            <header>
+        <!-- start header -->
+        <header>
         <!-- phase banner -->
         <div class="bg-gray py-3">
           <div class="container mx-auto px-100">
@@ -43,7 +43,7 @@
             </div>
 
             <div>
-              <a href="#" lang="fr" class="text-xl">Français</a>
+              <?php icl_post_languages(); ?>
             </div>
           </div>
         </div>
