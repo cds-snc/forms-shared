@@ -1,25 +1,100 @@
 // src/index.js
+/**
+ * Block dependencies
+ */
+import icon from "./icon";
+
+/**
+ * Internal block libraries
+ */
+const { __ } = wp.i18n;
+const { Fragment } = wp.element;
 const { registerBlockType } = wp.blocks;
+const { URLInput } = wp.editor;
+const { IconButton, Tooltip, TextControl } = wp.components;
 
+import { ColorPalette } from '@wordpress/components';
+import { withState } from '@wordpress/compose';
 
-const {
-  element: {
-      useState,
-  },
-} = wp;
+const MyColorPalette = withState( {
+  color: '#f00',
+} )( ( { color, setState } ) => {
+  const colors = [
+      { name: 'red', color: '#f00' },
+      { name: 'blue', color: '#00f' },
+  ];
+
+  return (
+      <ColorPalette
+          colors={ colors }
+          value={ color }
+          onChange={ ( color ) => setState( { color } ) }
+      />
+  )
+} );
 
 registerBlockType("cds/callout-block", {
   title: "CDS callout",
   icon: "megaphone",
   category: "layout",
-  edit: ({ className }) => (
-    <div className={className}>
-      This application is only a demonstration of the Shared Forms project
-    </div>
-  ),
-  save: () => (
-    <div className="border-l-4 border-solid border-blue-400 bg-blue-200 p-5 mb-10">
-      <div className="text-xl mb-0 pb-0">This application is only a demonstration of the Shared Forms project</div>
-    </div>
-  ),
+  icon: {
+    background: "rgba(254, 243, 224, 0.52)",
+    src: icon,
+  },
+  keywords: [
+    __("Link", "jsforwpblocks"),
+    __("Post", "jsforwpblocks"),
+    __("Search", "jsforwpblocks"),
+  ],
+  attributes: {
+    text: {
+      type: "string",
+      source: "text",
+      selector: "a",
+    },
+    color: {
+      type: "string",
+      source: "attribute",
+      attribute: "button",
+      selector: "value",
+    },
+  },
+  edit: (props) => {
+    const {
+      attributes: { text },
+      setAttributes,
+    } = props;
+    return (
+      <div>
+          <Fragment>
+            <TextControl
+              id="example-input-field"
+              label={__("Call-out text", "cds")}
+              value={text}
+              onChange={(text) => setAttributes({ text })}
+            />
+            {/*
+            <MyColorPalette 
+              value={color}
+              onChange={(color) => setAttributes({ color })}
+            />
+
+            */ }
+
+          </Fragment>
+        
+      </div>
+    );
+  },
+  save: (props) => {
+    const {
+      attributes: { text},
+    } = props;
+
+    return (
+      <p>
+        {text}
+      </p>
+    );
+  },
 });
