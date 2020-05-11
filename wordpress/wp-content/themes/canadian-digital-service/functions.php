@@ -95,7 +95,7 @@ add_action( 'init', 'remove_block_style' );
 
 // wp.blocks.getBlockTypes()
 
-add_filter( 'allowed_block_types', 'cds_allowed_block_types' );
+// add_filter( 'allowed_block_types', 'cds_allowed_block_types' );
  
 function cds_allowed_block_types( $allowed_blocks ) {
  
