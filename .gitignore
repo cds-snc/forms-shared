@@ -114,7 +114,11 @@ cdk.context.json
 
 notes.md
 
-wordpress/wp-content/plugins
+wordpress/wp-content/plugins/gravityforms
+wordpress/wp-content/plugins/gravityforms-multilingual
+wordpress/wp-content/plugins/remove-wp-branding
+wordpress/wp-content/plugins/sitepress-multilingual-cms
+wordpress/wp-content/plugins/wpml-string-translation
+wordpress/wp-content/plugins/wpml-translation-management
 wordpress/wp-content/uploads
-
 wordpress/wp-content/languages
