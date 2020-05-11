@@ -94,7 +94,7 @@ function remove_block_style() {
 add_action( 'init', 'remove_block_style' );
 
 // wp.blocks.getBlockTypes()
-/*
+
 add_filter( 'allowed_block_types', 'cds_allowed_block_types' );
  
 function cds_allowed_block_types( $allowed_blocks ) {
@@ -111,13 +111,14 @@ function cds_allowed_block_types( $allowed_blocks ) {
 		'cds/callout-block'
 	);
 }
-*/
+
 
 
 /**
  * Multi-site
  */
-
+/*
 add_filter( 'allow_subdirectory_install',
     create_function( '', 'return true;' )
 );
+*/

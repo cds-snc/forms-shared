@@ -1,6 +1,13 @@
 // src/index.js
 const { registerBlockType } = wp.blocks;
 
+
+const {
+  element: {
+      useState,
+  },
+} = wp;
+
 registerBlockType("cds/callout-block", {
   title: "CDS callout",
   icon: "megaphone",

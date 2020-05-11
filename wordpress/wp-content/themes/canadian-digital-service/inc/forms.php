@@ -16,8 +16,6 @@ if( !is_admin()){
 
 if( !is_admin() ){
 	
-    add_filter('gform_field_content', my_field_content, 10, 2 );
-    
     function my_field_content( $content, $field, $value, $lead_id, $form_id ) {
         // Add .form-control to most inputs.
         $exclude_formcontrol = array(
@@ -191,6 +189,8 @@ if( !is_admin() ){
 
         return $content;
     }
+
+    add_filter('gform_field_content', 'my_field_content', 10, 5 );
 };
 
 add_filter('gform_validation_message', function ( $message, $form ) {
@@ -212,4 +212,4 @@ add_filter('gform_validation_message', function ( $message, $form ) {
     $message .= '</ol></div>';
 
     return $message;
-});
+}, 10, 2);
