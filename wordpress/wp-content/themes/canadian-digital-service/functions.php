@@ -122,15 +122,18 @@ add_filter( 'allow_subdirectory_install',
     create_function( '', 'return true;' )
 );
 */
-if ( function_exists('icl_post_languages' ) ) {
+
 
 	function icl_post_languages(){
-		$languages = icl_get_languages('skip_missing=1');
-		if(1 < count($languages)){
-		foreach($languages as $l){
-			if(!$l['active']) $langs[] = '<a href="'.$l['url'].'">'.$l['translated_name'].'</a>';
-		}
-		echo join(', ', $langs);
+		if ( function_exists('icl_get_languages' ) ) {
+		
+			$languages = icl_get_languages('skip_missing=1');
+			if(1 < count($languages)){
+				foreach($languages as $l){
+				if(!$l['active']) $langs[] = '<a href="'.$l['url'].'">'.$l['translated_name'].'</a>';
+			}
+			echo join(', ', $langs);
 		}
 	}
+
 }
