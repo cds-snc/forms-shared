@@ -123,6 +123,14 @@ add_filter( 'allow_subdirectory_install',
 );
 */
 
+	function show_lang($lang){
+
+		if(strtolower($lang) == "french"){
+			return "Français";
+		}
+
+		return "English";
+	}
 
 	function icl_post_languages(){
 		if ( function_exists('icl_get_languages' ) ) {
@@ -130,7 +138,7 @@ add_filter( 'allow_subdirectory_install',
 			$languages = icl_get_languages('skip_missing=1');
 			if(1 < count($languages)){
 				foreach($languages as $l){
-				if(!$l['active']) $langs[] = '<a href="'.$l['url'].'">'.$l['translated_name'].'</a>';
+					if(!$l['active']) $langs[] = '<a href="'.$l['url'].'">'.show_lang($l['translated_name']).'</a>';
 			}
 			echo join(', ', $langs);
 		}
