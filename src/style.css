@@ -1,8 +1,10 @@
-@tailwind base;
+@import "tailwindcss/base";
 
-@tailwind components;
+@import "tailwindcss/components";
 
-@tailwind utilities;
+@import "tailwindcss/utilities";
+
+@import "./custom";
 
 body {
   @apply text-xl;
@@ -49,10 +51,6 @@ ul.menu li {
 h4,
 h5 {
   @apply font-bold;
-}
-
-h3.gf_progressbar_title {
-  @apply text-gray-700 font-normal;
 }
 
 .input {
@@ -129,37 +127,6 @@ input[type="text"] {
 
 select {
   @apply h-12;
-}
-
-input[type="submit"].gform_button.button {
-  @apply cursor-pointer border-b-4 border-black py-3 px-5 mr-2 font-bold text-lg no-underline text-white bg-blue outline-none;
-}
-
-input[type="submit"].gform_button.button:focus {
-  @apply shadow-outline;
-}
-
-input[type="submit"].gform_button.button:hover {
-  @apply bg-blue-400;
-}
-
-.wp-block-button__link {
-  border-radius: 0;
-  border-bottom: solid;
-  @apply border-b-4 border-black py-3 px-5 mb-10 mr-2 font-bold text-lg no-underline text-white bg-blue outline-none;
-}
-
-.wp-block-button__link:focus {
-  @apply shadow-outline;
-}
-
-.wp-block-button__link:hover {
-  @apply bg-blue-400;
-}
-
-.wp-block-buttons 
-.wp-block-button {
-  margin: 0;
 }
 
 .banner {
