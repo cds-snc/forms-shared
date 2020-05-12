@@ -1,6 +1,7 @@
 <?php
 /*
 Plugin Name: Canadian Digital Service
+Text Domain: canadian-digital-service
 */
 function cds_block_register_block() {
 

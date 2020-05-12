@@ -1,3 +1,12 @@
-.wp-block-myguten-test-block {
-    color: cornflowerblue;
+.banner{
+    --border-opacity: 1;
+    --bg-opacity: 1;
+    font-size:1.2em;
+    border:none;
+    border-left: 4px solid rgba(51,80,117,var(--border-opacity));
+    background-color: #dff8fd;
+    background-color: rgba(223,248,253,var(--bg-opacity));
+    padding: 1.25rem;
+    margin-bottom: 2.5rem;
 }
+
