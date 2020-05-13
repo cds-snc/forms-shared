@@ -1,14 +1,16 @@
+require("./util/watcher");
+const { debug } = require("./util/debug");
 const express = require("express");
 const path = require("path");
 const nunjucks = require("nunjucks");
-const routes = require("./routes");
+const main = require("./routes/main");
+const form = require("./routes/form");
 const port = 8000;
 
 const start = () => {
   const app = express();
-  app.use(express.static("public"));
 
-  require("./util/watcher");
+  app.use(express.static("public"));
 
   nunjucks.configure(path.join(__dirname, "views"), {
     express: app,
@@ -18,11 +20,10 @@ const start = () => {
 
   app.set("view engine", "html");
 
-  app.use("/", routes);
+  app.use("/", main);
+  app.use("/form", form);
 
   return app;
 };
 
-const app = start();
-
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+start().listen(port, () => debug(`Listening at http://localhost:${port}`));

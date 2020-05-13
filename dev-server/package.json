@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
+    "dev": "NODE_ENV=development node index.js",
     "watch": "browser-sync start --proxy=localhost:8000 --files='public/build/*.css, **/*.html' --ignore=node_modules --reload-delay 1 --no-ui --no-notify",
     "build": "NODE_ENV=production webpack --mode production",
     "copy": "node publish"
@@ -20,6 +20,7 @@
     "copyfiles": "^2.2.0",
     "css-loader": "^3.5.3",
     "cssnano": "^4.1.10",
+    "debounce": "^1.2.0",
     "express": "^4.17.1",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",

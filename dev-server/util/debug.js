@@ -1,5 +1,3 @@
 module.exports = {
-  debug: (msg) => {
-    console.log(msg);
-  },
+  debug: console.log,
 };

@@ -1,10 +1,10 @@
 const path = require("path");
+const { debug } = require("./util/debug");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const local = path.resolve(__dirname, "public/build");
+const local = path.resolve(__dirname, "public/dist");
 
-module.exports = (env, argv = "development") => {
-  console.info("running in mode:", argv.mode);
+module.exports = (env, argv) => {
   let config = {
     mode: argv.mode,
     entry: "./css/main.js",
@@ -31,10 +31,7 @@ module.exports = (env, argv = "development") => {
       extensions: ["*", ".js", ".jsx"],
     },
     stats: "errors-only",
-    plugins: [
-      new CleanWebpackPlugin(),
-      new MiniCssExtractPlugin(),
-    ],
+    plugins: [new CleanWebpackPlugin(), new MiniCssExtractPlugin()],
   };
 
   return config;

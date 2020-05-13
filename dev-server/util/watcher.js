@@ -1,24 +1,22 @@
+const path = require("path");
+const { debug } = require("./debug");
 const chokidar = require("chokidar");
-const watcher = chokidar.watch(["views", "css"]);
+const debounce = require("debounce");
 const { build } = require("./build");
 
-watcher.on("ready", function () {
-  console.log("watcher ready");
+const styles = path.join(__dirname, "../css");
 
-  watcher.on("all", function () {
-    Object.keys(require.cache).forEach(function (id) {
-      if (/[\/\\]src[\/\\]/.test(id)) {
-        console.log("Clearing /src/ cache from server");
-        delete require.cache[id];
-      }
+const watcher = chokidar.watch([styles], {
+  ignored: ["node_modules/**/*", ".git/**/*", "**/*.js", "**/.DS_Store"],
+});
 
-      if (/[\/\\]views[\/\\]/.test(id)) {
-        console.log("Clearing /views/ cache from server");
-        delete require.cache[id];
-      }
-    });
+watcher.on("ready", () => {
+  debug("File watcher ready");
+  //debug(watcher.getWatched());
 
-    console.log("done", build());
+  watcher.on("change", () => {
+    build();
+    // debounce(build, 200);
   });
 });
 
