@@ -24,7 +24,7 @@ services:
       LOGGED_IN_SALT: f227c720e51beca1488200aaee4ee3193823047b
       NONCE_SALT: ca865f80e1f3f58f48c97091fbd4ccf9bf293a59
     ports:
-      - 8000:80
+      - 80:80
     networks:
       - back
   db:

@@ -41,7 +41,7 @@ if ! [ -e index.php -a -e wp-includes/version.php ]; then
 		( set -x; ls -A; sleep 10 )
 	fi
 	tar cf - --one-file-system -C /usr/src/wordpress . | tar xf -
-	echo >&2 "Complete! WordPress has been successfully copied to ZPPPM S$(pwd)"
+	echo >&2 "Complete! WordPress has been successfully copied to S$(pwd)"
 fi
 
 # TODO handle WordPress upgrades magically in the same way, but only if wp-includes/version.php's $wp_version is less than /usr/src/wordpress/wp-includes/version.php's $wp_version
@@ -75,6 +75,9 @@ if (!$mysql->query('CREATE DATABASE IF NOT EXISTS `' . $mysql->real_escape_strin
 
 $mysql->close();
 EOPHP
+
+echo >&2 "Doing multisite install"
+wp core multisite-install --title="Welcome to the WordPress" --admin_user="admin" --admin_password="password" --admin_email="admin@example.com"  --allow-root
 
 exec "$@"
 
