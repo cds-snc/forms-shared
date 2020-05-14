@@ -3,6 +3,28 @@
 Plugin Name: Canadian Digital Service
 Text Domain: canadian-digital-service
 */
+
+require __DIR__ . '/vendor/autoload.php';
+
+$notifyClient = new \Alphagov\Notifications\Client([
+	'baseUrl' => "https://api.notification.alpha.canada.ca",
+	'apiKey' => '',
+    'httpClient' => new \Http\Adapter\Guzzle6\Client
+]);
+
+try {
+    $response = $notifyClient->sendEmail(
+        'to-email-here',
+        'template-id-here', [
+            'name' => '',
+            'dob'  => ''
+        ],
+        'unique_ref123'
+        );
+
+} catch (NotifyException $e){}
+
+
 function cds_block_register_block() {
 
 	// Register JavaScript File build/index.js
