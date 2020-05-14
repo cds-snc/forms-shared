@@ -25,6 +25,12 @@ class WordpressStack extends cdk.Stack {
     super(construct, id, props);
 
     const image = ecs.ContainerImage.fromRegistry("wordpress");
+    /*
+    const image = ecs.ContainerImage.fromAsset(path.resolve(__dirname, "../"), {
+      file: "path/to/Dockerfile",
+      buildArgs: {},
+    });
+    */
 
     const vpc = new ec2.Vpc(this, "vpc", {
       maxAzs: 2,
