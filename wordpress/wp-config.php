@@ -42,7 +42,7 @@ define( 'DB_COLLATE');
 
 
 /* Multisite */
-define('WP_ALLOW_MULTISITE', true);
+define('WP_ALLOW_MULTISITE', env('WP_ALLOW_MULTISITE', true));
 define('SUBDOMAIN_INSTALL', env('SUBDOMAIN_INSTALL', false));
 define('DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE', 'localhost'));
 define('PATH_CURRENT_SITE', env('PATH_CURRENT_SITE', '/'));
