@@ -5,7 +5,7 @@ import * as rds from "@aws-cdk/aws-rds";
 import * as ecs_patterns from "@aws-cdk/aws-ecs-patterns";
 import * as ecs from "@aws-cdk/aws-ecs";
 
-import * as path from 'path';
+import * as path from "path";
 
 const DB_PORT = Number(process.env["DB_PORT"]) as number;
 const DB_NAME = process.env["DB_NAME"] as string;
@@ -27,12 +27,8 @@ class WordpressStack extends cdk.Stack {
     super(construct, id, props);
 
     // const image = ecs.ContainerImage.fromRegistry("wordpress");
-    
-    const image = ecs.ContainerImage.fromAsset(path.resolve(__dirname, "../"), {
-      file: "Dockerfile",
-      buildArgs: {},
-    });
-    
+
+    const image = ecs.ContainerImage.fromAsset(path.join(__dirname, "../"));
 
     const vpc = new ec2.Vpc(this, "vpc", {
       maxAzs: 2,
@@ -91,7 +87,7 @@ class WordpressStack extends cdk.Stack {
             AUTH_SALT: AUTH_SALT,
             SECURE_AUTH_SALT: SECURE_AUTH_SALT,
             LOGGED_IN_SALT: LOGGED_IN_SALT,
-            NONCE_SALT: NONCE_SALT
+            NONCE_SALT: NONCE_SALT,
           },
           enableLogging: true,
         },
