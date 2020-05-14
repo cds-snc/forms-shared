@@ -9,10 +9,12 @@ services:
     restart: always
     volumes:
       - ../wordpress/wp-content:/var/www/html/wp-content
+      - ../wordpress/.htaccess:/var/www/html/.htaccess
+      - ../wordpress/package.json:/var/www/html/package.json
       - ../wordpress/wp-config.php:/var/www/html/wp-config.php
     environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_PASSWORD: p4ssw0rd!
+      DB_HOST: db:3306
+      DB_PASSWORD: p4ssw0rd!
       AUTH_KEY: 5e78a80f581b3a2c008f37280112a866bd94697d
       SECURE_AUTH_KEY: 2b0dcc0b986ccf34cf0e2841bc8d519c2bff2bb6
       LOGGED_IN_KEY: 958c57a21bd9b8edacaabea2c6c5271acd1fd9fd

@@ -11,6 +11,15 @@ const DB_USER = process.env["DB_USER"] as string;
 const DB_PASSWORD = process.env["DB_PASSWORD"] as string;
 const DB_HOST = process.env["DB_HOST"] as string;
 
+const AUTH_KEY = process.env["AUTH_KEY"] as string;
+const SECURE_AUTH_KEY = process.env["SECURE_AUTH_KEY"] as string;
+const LOGGED_IN_KEY = process.env["LOGGED_IN_KEY"] as string;
+const NONCE_KEY = process.env["NONCE_KEY"] as string;
+const AUTH_SALT = process.env["AUTH_SALT"] as string;
+const SECURE_AUTH_SALT = process.env["SECURE_AUTH_SALT"] as string;
+const LOGGED_IN_SALT = process.env["LOGGED_IN_SALT"] as string;
+const NONCE_SALT = process.env["NONCE_SALT"] as string;
+
 class WordpressStack extends cdk.Stack {
   constructor(construct: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(construct, id, props);
@@ -63,10 +72,18 @@ class WordpressStack extends cdk.Stack {
         taskImageOptions: {
           image: image,
           environment: {
-            WORDPRESS_DB_HOST: DB_HOST, // db.dbInstanceEndpointAddress,
-            WORDPRESS_DB_USER: DB_USER,
-            WORDPRESS_DB_PASSWORD: DB_PASSWORD,
-            WORDPRESS_DB_NAME: DB_NAME,
+            DB_HOST: DB_HOST, // db.dbInstanceEndpointAddress,
+            DB_USER: DB_USER,
+            DB_PASSWORD: DB_PASSWORD,
+            DB_NAME: DB_NAME,
+            AUTH_KEY: AUTH_KEY,
+            SECURE_AUTH_KEY: SECURE_AUTH_KEY,
+            LOGGED_IN_KEY: LOGGED_IN_KEY,
+            NONCE_KEY: NONCE_KEY,
+            AUTH_SALT: AUTH_SALT,
+            SECURE_AUTH_SALT: SECURE_AUTH_SALT,
+            LOGGED_IN_SALT: LOGGED_IN_SALT,
+            NONCE_SALT: NONCE_SALT
           },
           enableLogging: true,
         },

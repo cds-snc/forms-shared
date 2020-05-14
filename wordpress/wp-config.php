@@ -29,10 +29,10 @@ define( 'DB_NAME', env('DB_NAME', 'wordpress'));
 define( 'DB_USER', env('DB_USER', 'root'));
 
 /** MySQL database password */
-define( 'DB_PASSWORD', env('WORDPRESS_DB_PASSWORD'));
+define( 'DB_PASSWORD', env('DB_PASSWORD'));
 
 /** MySQL hostname */
-define( 'DB_HOST', env('WORDPRESS_DB_HOST'));
+define( 'DB_HOST', env('DB_HOST'));
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8');
