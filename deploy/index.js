@@ -12,63 +12,81 @@ const DB_USER = process.env["DB_USER"];
 const DB_PASSWORD = process.env["DB_PASSWORD"];
 const DB_HOST = process.env["DB_HOST"];
 class WordpressStack extends cdk.Stack {
-    constructor(construct, id, props) {
-        super(construct, id, props);
-        const image = ecs.ContainerImage.fromRegistry("wordpress");
-        const vpc = new ec2.Vpc(this, "vpc", {
-            maxAzs: 2,
-        });
-        const wordpressSg = new ec2.SecurityGroup(this, "wp-sg", {
-            vpc: vpc,
-            description: "Wordpress security group",
-        });
-        new rds.DatabaseInstance(this, "db", {
-            engine: rds.DatabaseInstanceEngine.MYSQL,
-            masterUsername: DB_USER,
-            masterUserPassword: cdk.SecretValue.plainText(DB_PASSWORD),
-            instanceClass: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.SMALL),
-            storageEncrypted: false,
-            multiAz: false,
-            autoMinorVersionUpgrade: false,
-            allocatedStorage: 25,
-            storageType: rds.StorageType.GP2,
-            backupRetention: cdk.Duration.days(3),
-            deletionProtection: false,
-            databaseName: DB_NAME,
-            vpc,
-            securityGroups: [wordpressSg],
-            port: 3306,
-        });
-        const cluster = new ecs.Cluster(this, "ecs-cluster", {
-            vpc,
-        });
-        cluster.connections.addSecurityGroup(wordpressSg);
-        const wordpressService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, "wordpress-service", {
-            cluster: cluster,
-            cpu: 256,
-            desiredCount: 1,
-            taskImageOptions: {
-                image: image,
-                environment: {
-                    WORDPRESS_DB_HOST: DB_HOST,
-                    WORDPRESS_DB_USER: DB_USER,
-                    WORDPRESS_DB_PASSWORD: DB_PASSWORD,
-                    WORDPRESS_DB_NAME: DB_NAME,
-                },
-                enableLogging: true,
-            },
-            memoryLimitMiB: 512,
-            publicLoadBalancer: true,
-        });
-        wordpressService.service.connections.allowTo(wordpressSg, ec2.Port.tcp(DB_PORT));
-    }
+  constructor(construct, id, props) {
+    super(construct, id, props);
+
+    const image = ecs.ContainerImage.fromRegistry("wordpress");
+    /*
+    const image = ecs.ContainerImage.fromAsset(path.resolve(__dirname, "../"), {
+      file: "path/to/Dockerfile",
+      buildArgs: {},
+    });
+    */
+
+    const vpc = new ec2.Vpc(this, "vpc", {
+      maxAzs: 2,
+    });
+    const wordpressSg = new ec2.SecurityGroup(this, "wp-sg", {
+      vpc: vpc,
+      description: "Wordpress security group",
+    });
+    new rds.DatabaseInstance(this, "db", {
+      engine: rds.DatabaseInstanceEngine.MYSQL,
+      masterUsername: DB_USER,
+      masterUserPassword: cdk.SecretValue.plainText(DB_PASSWORD),
+      instanceClass: ec2.InstanceType.of(
+        ec2.InstanceClass.T2,
+        ec2.InstanceSize.SMALL
+      ),
+      storageEncrypted: false,
+      multiAz: false,
+      autoMinorVersionUpgrade: false,
+      allocatedStorage: 25,
+      storageType: rds.StorageType.GP2,
+      backupRetention: cdk.Duration.days(3),
+      deletionProtection: false,
+      databaseName: DB_NAME,
+      vpc,
+      securityGroups: [wordpressSg],
+      port: 3306,
+    });
+    const cluster = new ecs.Cluster(this, "ecs-cluster", {
+      vpc,
+    });
+    cluster.connections.addSecurityGroup(wordpressSg);
+    const wordpressService = new ecs_patterns.ApplicationLoadBalancedFargateService(
+      this,
+      "wordpress-service",
+      {
+        cluster: cluster,
+        cpu: 256,
+        desiredCount: 1,
+        taskImageOptions: {
+          image: image,
+          environment: {
+            WORDPRESS_DB_HOST: DB_HOST,
+            WORDPRESS_DB_USER: DB_USER,
+            WORDPRESS_DB_PASSWORD: DB_PASSWORD,
+            WORDPRESS_DB_NAME: DB_NAME,
+          },
+          enableLogging: true,
+        },
+        memoryLimitMiB: 512,
+        publicLoadBalancer: true,
+      }
+    );
+    wordpressService.service.connections.allowTo(
+      wordpressSg,
+      ec2.Port.tcp(DB_PORT)
+    );
+  }
 }
 const app = new cdk.App();
 new WordpressStack(app, "FormsStackWP", {
-    env: {
-        account: process.env.AWS_ACCOUNT_ID,
-        region: process.env.AWS_REGION,
-    },
-    description: "Fargate WordPress deployment",
+  env: {
+    account: process.env.AWS_ACCOUNT_ID,
+    region: process.env.AWS_REGION,
+  },
+  description: "Fargate WordPress deployment",
 });
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztBQUMzQixxQ0FBcUM7QUFDckMsd0NBQXdDO0FBQ3hDLHdDQUF3QztBQUN4QywwREFBMEQ7QUFDMUQsd0NBQXdDO0FBRXhDLE1BQU0sT0FBTyxHQUFHLE1BQU0sQ0FBQyxPQUFPLENBQUMsR0FBRyxDQUFDLFNBQVMsQ0FBQyxDQUFXLENBQUM7QUFDekQsTUFBTSxPQUFPLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxTQUFTLENBQVcsQ0FBQztBQUNqRCxNQUFNLE9BQU8sR0FBRyxPQUFPLENBQUMsR0FBRyxDQUFDLFNBQVMsQ0FBVyxDQUFDO0FBQ2pELE1BQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsYUFBYSxDQUFXLENBQUM7QUFDekQsTUFBTSxPQUFPLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxTQUFTLENBQVcsQ0FBQztBQUVqRCxNQUFNLGNBQWUsU0FBUSxHQUFHLENBQUMsS0FBSztJQUNwQyxZQUFZLFNBQXdCLEVBQUUsRUFBVSxFQUFFLEtBQXNCO1FBQ3RFLEtBQUssQ0FBQyxTQUFTLEVBQUUsRUFBRSxFQUFFLEtBQUssQ0FBQyxDQUFDO1FBRTVCLE1BQU0sS0FBSyxHQUFHLEdBQUcsQ0FBQyxjQUFjLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxDQUFDO1FBRTNELE1BQU0sR0FBRyxHQUFHLElBQUksR0FBRyxDQUFDLEdBQUcsQ0FBQyxJQUFJLEVBQUUsS0FBSyxFQUFFO1lBQ25DLE1BQU0sRUFBRSxDQUFDO1NBQ1YsQ0FBQyxDQUFDO1FBRUgsTUFBTSxXQUFXLEdBQUcsSUFBSSxHQUFHLENBQUMsYUFBYSxDQUFDLElBQUksRUFBRSxPQUFPLEVBQUU7WUFDdkQsR0FBRyxFQUFFLEdBQUc7WUFDUixXQUFXLEVBQUUsMEJBQTBCO1NBQ3hDLENBQUMsQ0FBQztRQUVILElBQUksR0FBRyxDQUFDLGdCQUFnQixDQUFDLElBQUksRUFBRSxJQUFJLEVBQUU7WUFDbkMsTUFBTSxFQUFFLEdBQUcsQ0FBQyxzQkFBc0IsQ0FBQyxLQUFLO1lBQ3hDLGNBQWMsRUFBRSxPQUFPO1lBQ3ZCLGtCQUFrQixFQUFFLEdBQUcsQ0FBQyxXQUFXLENBQUMsU0FBUyxDQUFDLFdBQVcsQ0FBQztZQUMxRCxhQUFhLEVBQUUsR0FBRyxDQUFDLFlBQVksQ0FBQyxFQUFFLENBQ2hDLEdBQUcsQ0FBQyxhQUFhLENBQUMsRUFBRSxFQUNwQixHQUFHLENBQUMsWUFBWSxDQUFDLEtBQUssQ0FDdkI7WUFDRCxnQkFBZ0IsRUFBRSxLQUFLO1lBQ3ZCLE9BQU8sRUFBRSxLQUFLO1lBQ2QsdUJBQXVCLEVBQUUsS0FBSztZQUM5QixnQkFBZ0IsRUFBRSxFQUFFO1lBQ3BCLFdBQVcsRUFBRSxHQUFHLENBQUMsV0FBVyxDQUFDLEdBQUc7WUFDaEMsZUFBZSxFQUFFLEdBQUcsQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQztZQUNyQyxrQkFBa0IsRUFBRSxLQUFLO1lBQ3pCLFlBQVksRUFBRSxPQUFPO1lBQ3JCLEdBQUc7WUFDSCxjQUFjLEVBQUUsQ0FBQyxXQUFXLENBQUM7WUFDN0IsSUFBSSxFQUFFLElBQUk7U0FDWCxDQUFDLENBQUM7UUFFSCxNQUFNLE9BQU8sR0FBRyxJQUFJLEdBQUcsQ0FBQyxPQUFPLENBQUMsSUFBSSxFQUFFLGFBQWEsRUFBRTtZQUNuRCxHQUFHO1NBQ0osQ0FBQyxDQUFDO1FBRUgsT0FBTyxDQUFDLFdBQVcsQ0FBQyxnQkFBZ0IsQ0FBQyxXQUFXLENBQUMsQ0FBQztRQUVsRCxNQUFNLGdCQUFnQixHQUFHLElBQUksWUFBWSxDQUFDLHFDQUFxQyxDQUM3RSxJQUFJLEVBQ0osbUJBQW1CLEVBQ25CO1lBQ0UsT0FBTyxFQUFFLE9BQU87WUFDaEIsR0FBRyxFQUFFLEdBQUc7WUFDUixZQUFZLEVBQUUsQ0FBQztZQUNmLGdCQUFnQixFQUFFO2dCQUNoQixLQUFLLEVBQUUsS0FBSztnQkFDWixXQUFXLEVBQUU7b0JBQ1gsaUJBQWlCLEVBQUUsT0FBTztvQkFDMUIsaUJBQWlCLEVBQUUsT0FBTztvQkFDMUIscUJBQXFCLEVBQUUsV0FBVztvQkFDbEMsaUJBQWlCLEVBQUUsT0FBTztpQkFDM0I7Z0JBQ0QsYUFBYSxFQUFFLElBQUk7YUFDcEI7WUFDRCxjQUFjLEVBQUUsR0FBRztZQUNuQixrQkFBa0IsRUFBRSxJQUFJO1NBQ3pCLENBQ0YsQ0FBQztRQUVGLGdCQUFnQixDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUMsT0FBTyxDQUMxQyxXQUFXLEVBQ1gsR0FBRyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsT0FBTyxDQUFDLENBQ3RCLENBQUM7SUFDSixDQUFDO0NBQ0Y7QUFDRCxNQUFNLEdBQUcsR0FBRyxJQUFJLEdBQUcsQ0FBQyxHQUFHLEVBQUUsQ0FBQztBQUMxQixJQUFJLGNBQWMsQ0FBQyxHQUFHLEVBQUUsY0FBYyxFQUFFO0lBQ3RDLEdBQUcsRUFBRTtRQUNILE9BQU8sRUFBRSxPQUFPLENBQUMsR0FBRyxDQUFDLGNBQWM7UUFDbkMsTUFBTSxFQUFFLE9BQU8sQ0FBQyxHQUFHLENBQUMsVUFBVTtLQUMvQjtJQUNELFdBQVcsRUFBRSw4QkFBOEI7Q0FDNUMsQ0FBQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsicmVxdWlyZShcImRvdGVudlwiKS5jb25maWcoKTtcbmltcG9ydCAqIGFzIGNkayBmcm9tIFwiQGF3cy1jZGsvY29yZVwiO1xuaW1wb3J0ICogYXMgZWMyIGZyb20gXCJAYXdzLWNkay9hd3MtZWMyXCI7XG5pbXBvcnQgKiBhcyByZHMgZnJvbSBcIkBhd3MtY2RrL2F3cy1yZHNcIjtcbmltcG9ydCAqIGFzIGVjc19wYXR0ZXJucyBmcm9tIFwiQGF3cy1jZGsvYXdzLWVjcy1wYXR0ZXJuc1wiO1xuaW1wb3J0ICogYXMgZWNzIGZyb20gXCJAYXdzLWNkay9hd3MtZWNzXCI7XG5cbmNvbnN0IERCX1BPUlQgPSBOdW1iZXIocHJvY2Vzcy5lbnZbXCJEQl9QT1JUXCJdKSBhcyBudW1iZXI7XG5jb25zdCBEQl9OQU1FID0gcHJvY2Vzcy5lbnZbXCJEQl9OQU1FXCJdIGFzIHN0cmluZztcbmNvbnN0IERCX1VTRVIgPSBwcm9jZXNzLmVudltcIkRCX1VTRVJcIl0gYXMgc3RyaW5nO1xuY29uc3QgREJfUEFTU1dPUkQgPSBwcm9jZXNzLmVudltcIkRCX1BBU1NXT1JEXCJdIGFzIHN0cmluZztcbmNvbnN0IERCX0hPU1QgPSBwcm9jZXNzLmVudltcIkRCX0hPU1RcIl0gYXMgc3RyaW5nO1xuXG5jbGFzcyBXb3JkcHJlc3NTdGFjayBleHRlbmRzIGNkay5TdGFjayB7XG4gIGNvbnN0cnVjdG9yKGNvbnN0cnVjdDogY2RrLkNvbnN0cnVjdCwgaWQ6IHN0cmluZywgcHJvcHM/OiBjZGsuU3RhY2tQcm9wcykge1xuICAgIHN1cGVyKGNvbnN0cnVjdCwgaWQsIHByb3BzKTtcblxuICAgIGNvbnN0IGltYWdlID0gZWNzLkNvbnRhaW5lckltYWdlLmZyb21SZWdpc3RyeShcIndvcmRwcmVzc1wiKTtcblxuICAgIGNvbnN0IHZwYyA9IG5ldyBlYzIuVnBjKHRoaXMsIFwidnBjXCIsIHtcbiAgICAgIG1heEF6czogMixcbiAgICB9KTtcblxuICAgIGNvbnN0IHdvcmRwcmVzc1NnID0gbmV3IGVjMi5TZWN1cml0eUdyb3VwKHRoaXMsIFwid3Atc2dcIiwge1xuICAgICAgdnBjOiB2cGMsXG4gICAgICBkZXNjcmlwdGlvbjogXCJXb3JkcHJlc3Mgc2VjdXJpdHkgZ3JvdXBcIixcbiAgICB9KTtcblxuICAgIG5ldyByZHMuRGF0YWJhc2VJbnN0YW5jZSh0aGlzLCBcImRiXCIsIHtcbiAgICAgIGVuZ2luZTogcmRzLkRhdGFiYXNlSW5zdGFuY2VFbmdpbmUuTVlTUUwsXG4gICAgICBtYXN0ZXJVc2VybmFtZTogREJfVVNFUixcbiAgICAgIG1hc3RlclVzZXJQYXNzd29yZDogY2RrLlNlY3JldFZhbHVlLnBsYWluVGV4dChEQl9QQVNTV09SRCksXG4gICAgICBpbnN0YW5jZUNsYXNzOiBlYzIuSW5zdGFuY2VUeXBlLm9mKFxuICAgICAgICBlYzIuSW5zdGFuY2VDbGFzcy5UMixcbiAgICAgICAgZWMyLkluc3RhbmNlU2l6ZS5TTUFMTFxuICAgICAgKSxcbiAgICAgIHN0b3JhZ2VFbmNyeXB0ZWQ6IGZhbHNlLFxuICAgICAgbXVsdGlBejogZmFsc2UsXG4gICAgICBhdXRvTWlub3JWZXJzaW9uVXBncmFkZTogZmFsc2UsXG4gICAgICBhbGxvY2F0ZWRTdG9yYWdlOiAyNSxcbiAgICAgIHN0b3JhZ2VUeXBlOiByZHMuU3RvcmFnZVR5cGUuR1AyLFxuICAgICAgYmFja3VwUmV0ZW50aW9uOiBjZGsuRHVyYXRpb24uZGF5cygzKSxcbiAgICAgIGRlbGV0aW9uUHJvdGVjdGlvbjogZmFsc2UsXG4gICAgICBkYXRhYmFzZU5hbWU6IERCX05BTUUsXG4gICAgICB2cGMsXG4gICAgICBzZWN1cml0eUdyb3VwczogW3dvcmRwcmVzc1NnXSxcbiAgICAgIHBvcnQ6IDMzMDYsXG4gICAgfSk7XG5cbiAgICBjb25zdCBjbHVzdGVyID0gbmV3IGVjcy5DbHVzdGVyKHRoaXMsIFwiZWNzLWNsdXN0ZXJcIiwge1xuICAgICAgdnBjLFxuICAgIH0pO1xuXG4gICAgY2x1c3Rlci5jb25uZWN0aW9ucy5hZGRTZWN1cml0eUdyb3VwKHdvcmRwcmVzc1NnKTtcblxuICAgIGNvbnN0IHdvcmRwcmVzc1NlcnZpY2UgPSBuZXcgZWNzX3BhdHRlcm5zLkFwcGxpY2F0aW9uTG9hZEJhbGFuY2VkRmFyZ2F0ZVNlcnZpY2UoXG4gICAgICB0aGlzLFxuICAgICAgXCJ3b3JkcHJlc3Mtc2VydmljZVwiLFxuICAgICAge1xuICAgICAgICBjbHVzdGVyOiBjbHVzdGVyLCAvLyBSZXF1aXJlZFxuICAgICAgICBjcHU6IDI1NiwgLy8gRGVmYXVsdCBpcyAyNTZcbiAgICAgICAgZGVzaXJlZENvdW50OiAxLCAvLyBEZWZhdWx0IGlzIDEsXG4gICAgICAgIHRhc2tJbWFnZU9wdGlvbnM6IHtcbiAgICAgICAgICBpbWFnZTogaW1hZ2UsXG4gICAgICAgICAgZW52aXJvbm1lbnQ6IHtcbiAgICAgICAgICAgIFdPUkRQUkVTU19EQl9IT1NUOiBEQl9IT1NULCAvLyBkYi5kYkluc3RhbmNlRW5kcG9pbnRBZGRyZXNzLFxuICAgICAgICAgICAgV09SRFBSRVNTX0RCX1VTRVI6IERCX1VTRVIsXG4gICAgICAgICAgICBXT1JEUFJFU1NfREJfUEFTU1dPUkQ6IERCX1BBU1NXT1JELFxuICAgICAgICAgICAgV09SRFBSRVNTX0RCX05BTUU6IERCX05BTUUsXG4gICAgICAgICAgfSxcbiAgICAgICAgICBlbmFibGVMb2dnaW5nOiB0cnVlLFxuICAgICAgICB9LFxuICAgICAgICBtZW1vcnlMaW1pdE1pQjogNTEyLCAvLyBEZWZhdWx0IGlzIDUxMlxuICAgICAgICBwdWJsaWNMb2FkQmFsYW5jZXI6IHRydWUsIC8vIERlZmF1bHQgaXMgZmFsc2UsXG4gICAgICB9XG4gICAgKTtcblxuICAgIHdvcmRwcmVzc1NlcnZpY2Uuc2VydmljZS5jb25uZWN0aW9ucy5hbGxvd1RvKFxuICAgICAgd29yZHByZXNzU2csXG4gICAgICBlYzIuUG9ydC50Y3AoREJfUE9SVClcbiAgICApO1xuICB9XG59XG5jb25zdCBhcHAgPSBuZXcgY2RrLkFwcCgpO1xubmV3IFdvcmRwcmVzc1N0YWNrKGFwcCwgXCJGb3Jtc1N0YWNrV1BcIiwge1xuICBlbnY6IHtcbiAgICBhY2NvdW50OiBwcm9jZXNzLmVudi5BV1NfQUNDT1VOVF9JRCxcbiAgICByZWdpb246IHByb2Nlc3MuZW52LkFXU19SRUdJT04sXG4gIH0sXG4gIGRlc2NyaXB0aW9uOiBcIkZhcmdhdGUgV29yZFByZXNzIGRlcGxveW1lbnRcIixcbn0pO1xuIl19
