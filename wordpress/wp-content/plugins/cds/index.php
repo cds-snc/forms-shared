@@ -5,7 +5,7 @@ Text Domain: canadian-digital-service
 */
 
 require __DIR__ . '/vendor/autoload.php';
-
+/*
 $notifyClient = new \Alphagov\Notifications\Client([
 	'baseUrl' => "https://api.notification.alpha.canada.ca",
 	'apiKey' => '',
@@ -23,6 +23,7 @@ try {
         );
 
 } catch (NotifyException $e){}
+*/
 
 
 function cds_block_register_block() {
