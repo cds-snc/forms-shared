@@ -8,7 +8,11 @@
  */
 
 $inc = get_template_directory()."/inc/";
+
 require_once($inc."forms.php");
+require_once($inc."admin-panel.php");
+require_once($inc."clean-up.php");
+require_once($inc."dashboard.php");
 
 if ( ! function_exists( 'canadian_digital_service_setup' ) ) :
 	function canadian_digital_service_setup() {
@@ -82,16 +86,19 @@ function get_favicon($icon) {
  * Gutenburg cleanup
  */
 
-function remove_block_style() {
+function block_style() {
     // Register the block editor script.
     wp_register_script( 'editor-js', get_stylesheet_directory_uri() . "/public/js/editor.js", [ 'wp-blocks', 'wp-edit-post' ] );
-    // register block editor script.
-    register_block_type( 'remove/block-style', [
+	
+	
+	// register block editor script.
+	
+	register_block_type( 'remove/block-style', [
         'editor_script' => 'editor-js',
     ] );
 }
 
-add_action( 'init', 'remove_block_style' );
+add_action('init', 'block_style');
 
 // wp.blocks.getBlockTypes()
 
@@ -146,3 +153,17 @@ add_filter( 'allow_subdirectory_install',
 	}
 
 }
+
+
+//
+
+/**
+ * Enqueue a script in the WordPress admin, excluding edit.php.
+ *
+ * @param int $hook Hook suffix for the current admin page.
+ */
+function admin_enqueue( $hook ) {
+    wp_enqueue_script( 'cds-editor', get_stylesheet_directory_uri() . "/public/js/editor.js", array(), '1.0' );
+}
+
+add_action( 'admin_enqueue_scripts', 'admin_enqueue' );

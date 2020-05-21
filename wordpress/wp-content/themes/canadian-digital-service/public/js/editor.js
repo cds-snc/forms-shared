@@ -1,47 +1,21 @@
-wp.domReady(() => {
-  wp.blocks.unregisterBlockStyle("core/quote", "default");
-  wp.blocks.unregisterBlockStyle("core/quote", "large");
-  wp.blocks.unregisterBlockStyle("core/button", "default");
-  wp.blocks.unregisterBlockStyle("core/button", "fill");
-  wp.blocks.unregisterBlockStyle("core/button", "outline");
 
-  //
-  const el = wp.element.createElement;
-  const { registerBlockType } = wp.blocks;
-  const { InnerBlocks } = wp.blockEditor;
+let content = "<h2>Form Best Practices</h2>";
+content+= "<p>Let's first go over some best practices for designing forms. When done right, a form should feel like a friendly conversation between the user and the app. The following best practices will help you improve your designs and increase completion rates.</p>";
+content+="...... your content here";
+content+= "<h2>Form inputs</h2>";
+content+="<strong>Radio buttons</strong>";
+content+="<p>These are used when there are one or multiple predefined options. They allow users to make a single selection in an exposed list. Radio buttons are best used when there are 4 or less options to choose form.</p>";
 
-  const BLOCKS_TEMPLATE = [
-    ["core/heading", { level: 1, content: "Start page heading" }],
-    [
-      "core/paragraph",
-      { content: "You will need the following information to proceed:" },
-    ],
-    [
-      "cds/callout-block",
-      { text: "This application is only a demonstration purposes" },
-    ],
-    [
-      "core/list",
-      {
-        values:
-          "<li>The ability to copy and paste</li><li>An understanding that this is</li>",
-      },
-    ],
-    ["core/button", { placeholder: "Start your application" }],
-  ];
+content+='<img width="500" src="https://miro.medium.com/max/2780/1*x-HWMl9KjdcVGIWepqQ2Aw.gif" />';
 
-  registerBlockType("cds/start-page", {
-    title: "Start Page",
-    category: "layout",
-    icon: "welcome-add-page",
-    edit: (props) => {
-      return el(InnerBlocks, {
-        template: BLOCKS_TEMPLATE,
-        templateLock: false,
-      });
-    },
-    save: (props) => {
-      return el(InnerBlocks.Content, {});
-    },
-  });
+
+jQuery(document).ready(function($){
+  $("#no-fields").html("<div>"+content+"</div>").show();
+  $("#add_post_fields").html("");
+  $("#add_pricing_fields").html("");
+  $("li input[data-type='name']").parent().remove();
+  $("li input[data-type='fileupload']").parent().remove();
+  $("li input[data-type='captcha']").parent().remove();
+  $("li input[data-type='consent']").parent().remove();
+  $("li input[data-type='list']").parent().remove();
 });
