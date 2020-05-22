@@ -11,11 +11,27 @@ content+='<img width="500" src="https://miro.medium.com/max/2780/1*x-HWMl9KjdcVG
 
 jQuery(document).ready(function($){
   $("#no-fields").html("<div>"+content+"</div>").show();
-  $("#add_post_fields").html("");
-  $("#add_pricing_fields").html("");
   $("li input[data-type='name']").parent().remove();
+  $("li input[data-type='multiselect']").parent().remove();
+  $("li input[data-type='number']").parent().remove();
+  $("li input[data-type='hidden']").parent().remove();
+  $("li input[data-type='section']").parent().remove();
+  $("li input[data-type='html']").parent().remove();
   $("li input[data-type='fileupload']").parent().remove();
   $("li input[data-type='captcha']").parent().remove();
   $("li input[data-type='consent']").parent().remove();
   $("li input[data-type='list']").parent().remove();
+
+  $("#add_post_fields").html("");
+  $("#add_pricing_fields").html("");
+  $("#add_standard_fields").html('<div><h3>Let\'s make a form</h3><button id="test-button" style=";" class="button button-large">Add text field</button><hr><div>');
+  $("#add_advanced_fields").html("");
+
+  $("#test-button").click(function(){
+    StartAddField("text")
+  })
+
+ 
+  
+
 });
