@@ -114,6 +114,8 @@ cdk.context.json
 
 notes.md
 
+*.cache
+
 wordpress/wp-content/plugins/gravityforms
 wordpress/wp-content/plugins/gravityforms-multilingual
 wordpress/wp-content/plugins/remove-wp-branding
