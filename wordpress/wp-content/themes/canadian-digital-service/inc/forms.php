@@ -15,9 +15,27 @@ if (!is_admin()) {
     }
 }
 
+function outputTextBoxIfOther($content)
+{
+    $dom = new domDocument();
+    $dom->loadHTML('<?xml encoding="utf-8" ?>'.$content);
+    $xpath = new DomXPath($dom);
+    $el = $xpath->query('//input[@aria-label="Other" and @type="text"]');
+
+    if($el->length){
+        return $dom->saveHTML($el->item(0));
+    }
+
+    return "";
+}
+
 if (!is_admin()) {
     function my_field_content($content, $field, $value, $lead_id, $form_id)
     {
+        
+        global $inc;
+        require_once $inc.'log.php';
+        
         // Add .form-control to most inputs.
         $exclude_formcontrol = [
             'hidden',
@@ -152,27 +170,32 @@ if (!is_admin()) {
 
         // Radio.
         if ('radio' === $field['type']) {
+
             $dom = new domDocument();
             $dom->loadHTML('<?xml encoding="utf-8" ?>'.$content);
             $xpath = new DomXPath($dom);
+
             $radios = $xpath->query('//ul[contains(@class, "gfield_radio")]//li');
             $radio_out = '';
             $label = $xpath->query('//label', $radios->item(0));
             $radio_out = '<label>'.$label->item(0)->nodeValue.'</label>';
 
             foreach ($radios as $radioItem) {
+
                 $radio_out .= '<div>';
                 $radio_out .= "<label class='inline-flex items-center'>";
                 $label = $radioItem->lastChild;
                 $radio = $radioItem->firstChild;
                 $radio->setAttribute('class', 'text-blue form-radio h-6 w-6');
                 $radio_out .= $dom->saveHTML($radio);
+                $radio_out.= outputTextBoxIfOther($dom->saveHTML($radioItem));
                 $radio_out .= "<span class='ml-3 text-lg'>".$label->nodeValue.'</span>';
                 $radio_out .= '</label>';
                 $radio_out .= '</div>';
             }
 
             $content = $radio_out;
+            
         }
 
         // Date

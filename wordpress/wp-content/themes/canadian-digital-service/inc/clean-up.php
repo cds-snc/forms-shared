@@ -139,7 +139,7 @@ function cds_allowed_block_types($allowed_blocks)
     require_once $inc.'check-user.php';
 
     if (super_admin()) {
-        return;
+        return $allowed_blocks;
     }
 
     // define what blocks we'll allow

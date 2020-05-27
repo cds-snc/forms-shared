@@ -24,14 +24,4 @@ jQuery(document).ready(function($){
 
   $("#add_post_fields").html("");
   $("#add_pricing_fields").html("");
-  $("#add_standard_fields").html('<div><h3>Let\'s make a form</h3><button id="test-button" style=";" class="button button-large">Add text field</button><hr><div>');
-  $("#add_advanced_fields").html("");
-
-  $("#test-button").click(function(){
-    StartAddField("text")
-  })
-
- 
-  
-
 });
