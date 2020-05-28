@@ -23,7 +23,17 @@ function outputTextBoxIfOther($content)
     $el = $xpath->query('//input[@aria-label="Other" and @type="text"]');
 
     if($el->length){
-        return $dom->saveHTML($el->item(0));
+
+        $content = $dom->saveHTML($el->item(0));
+
+        
+        $content = str_replace(
+            '<input',
+            '<input class="ml-4 input focus:shadow-outline w-full"',
+            $content
+        );
+
+        return  $content;
     }
 
     return "";
@@ -74,7 +84,7 @@ if (!is_admin()) {
         // Text
         if ('text' === $field['type']) {
             $error = '';
-            $class .= 'input w-full lg:w-3/6';
+            $class .= 'input w-full lg:w-3/6 focus:shadow-outline';
             $dom = new domDocument();
             $dom->loadHTML('<?xml encoding="utf-8" ?>'.$content);
             $xpath = new DomXPath($dom);
@@ -182,14 +192,27 @@ if (!is_admin()) {
 
             foreach ($radios as $radioItem) {
 
+                $class = "text-blue form-radio h-6 w-6";
+                $other = outputTextBoxIfOther($dom->saveHTML($radioItem));
+
+                if($other){
+                    // add some margin between the input and the text box
+                    $class .=" mr-10";
+                }
+
                 $radio_out .= '<div>';
                 $radio_out .= "<label class='inline-flex items-center'>";
                 $label = $radioItem->lastChild;
                 $radio = $radioItem->firstChild;
-                $radio->setAttribute('class', 'text-blue form-radio h-6 w-6');
+                $radio->setAttribute('class', $class);
                 $radio_out .= $dom->saveHTML($radio);
-                $radio_out.= outputTextBoxIfOther($dom->saveHTML($radioItem));
-                $radio_out .= "<span class='ml-3 text-lg'>".$label->nodeValue.'</span>';
+                
+                $radio_out .= $other;
+
+                if(!$other){
+                    $radio_out .= "<span class='ml-3 text-lg'>".$label->nodeValue.'</span>';
+                }
+                
                 $radio_out .= '</label>';
                 $radio_out .= '</div>';
             }
