@@ -1,32 +1,31 @@
 # Forms shared
 
-## dev-server
+## Dev server
+> Generates .css theme file
 
-The dev server contains Tailwind CSS styled form and layout elements
+Tailwind CSS form and layout elements
 
-### Run the server
+#### Run the server
 
 ```bash
 cd dev-server
 npm run start
 ```
 
-### Watch files
+#### Watch files
 
-With the server running ppen another terminal window
+With the server running open another terminal window
 
 ```bash
 npm run watch
 ```
 
-### Publish CSS to the WordPress theme
+#### Publish CSS to the WordPress theme
 
 ```bash
 npm run build 
 npm run copy
 ```
-
-
 
 ## WordPress Container
 
