@@ -1,0 +1,111 @@
+{% extends "./includes/template.html" %} {% block content %}
+<!-- CONTENT -->
+<div class="container mx-auto mb-10">
+  <div class="container mx-auto mb-10">
+    <!-- -->
+    <form method="post" autocomplete="off" novalidate="">
+      <h1>Radio (Multiple Choice)</h1>
+
+      <h3>Default</h3>
+      <!-- start field -->
+      <div class="form-group">
+        <label>Do you agree?</label>
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              type="radio"
+              class="form-radio"
+              name="radio-sizes"
+              value="2"
+            />
+            <span class="ml-4">Yes</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              checked
+              type="radio"
+              class="form-radio"
+              name="radio-sizes"
+              value="2"
+            />
+            <span class="ml-4">No</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              type="radio"
+              class="text-blue form-radio h-6 w-6 mr-4"
+              name="radio-sizes"
+              value="2"
+            />
+            <input
+              class="input focus:shadow-outline w-full"
+              type="text"
+              value="Other"
+            />
+          </label>
+        </div>
+      </div>
+      <!-- end field -->
+
+      <!-- start field with error -->
+      <h3>With error</h3>
+      <div class="form-group form-group-error">
+        <label>Do you agree?</label>
+        <span class="error-message">
+          Can’t be empty
+        </span>
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              type="radio"
+              class="text-blue form-radio h-6 w-6"
+              name="radio-sizes"
+              value="2"
+            />
+            <span class="ml-4">Yes</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              checked
+              type="radio"
+              class="text-blue form-radio h-6 w-6"
+              name="radio-sizes"
+              value="2"
+            />
+            <span class="ml-4">No</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input
+              type="radio"
+              class="text-blue form-radio h-6 w-6 mr-4"
+              name="radio-sizes"
+              value="2"
+            />
+            <input
+              class="input focus:shadow-outline w-full"
+              type="text"
+              value="Other"
+            />
+          </label>
+        </div>
+      </div>
+
+      <!-- end field with error -->
+    </form>
+    <!-- end -->
+  </div>
+
+  {% endblock %}
+</div>

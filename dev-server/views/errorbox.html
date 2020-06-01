@@ -1,0 +1,23 @@
+{% extends "./includes/template.html" %} {% block content %}
+<!-- CONTENT -->
+<div class="container mx-auto mb-10">
+  <div class="container mx-auto mb-10">
+    <!-- -->
+    <form method="post" autocomplete="off" novalidate="">
+      <h1>Error box</h1>
+      <div
+        class="border-l-4 border-solid border-red bg-red-100 p-5 mb-10"
+        role="alert"
+      >
+        <h3>Please correct the errors on the page</h3>
+        <ol class="list-decimal list-inside py-3" id="formErrors">
+          <li><a href="#email_address">Email is required</a></li>
+          <li><a href="#notify_type">Please select a notification type.</a></li>
+        </ol>
+      </div>
+    </form>
+    <!-- end -->
+  </div>
+
+  {% endblock %}
+</div>

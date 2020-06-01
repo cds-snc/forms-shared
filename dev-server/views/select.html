@@ -1,0 +1,52 @@
+{% extends "./includes/template.html" %}
+      
+{% block content %}
+<!-- CONTENT -->
+<div class="container mx-auto mb-10">
+  <div class="container mx-auto mb-10">
+     <!-- -->
+     <form method="post" autocomplete="off" novalidate="">
+
+       <h1>Select (Dropdown)</h1>
+
+       <!-- start field -->
+       <h3>Default</h3>
+       <div class="form-group">
+        <label for="support_type">
+          Request Type
+        </label>
+        <select
+          class="input focus:shadow-outline w-full lg:w-3/6"
+          name="support_type"
+        >
+          <option value="Ask a question">Ask a question</option>
+          <option value="Give feedback">Give feedback</option>
+          <option value="Set up a demo">Set up a demo</option>
+        </select>
+      </div>
+      <!-- end field -->
+
+
+      <!-- start field with error -->
+      <h3>With error</h3>
+      <div class="form-group form-group-error">
+        <label for="support_type">
+          Request Type
+        </label>
+        <select
+          class="input focus:shadow-outline w-full lg:w-3/6"
+          name="support_type"
+        >
+          <option value="Ask a question">Ask a question</option>
+          <option value="Give feedback">Give feedback</option>
+          <option value="Set up a demo">Set up a demo</option>
+        </select>
+      </div>
+       <!-- end field with error -->
+    </form>
+  <!-- end -->
+</div>
+
+{% endblock %}
+      
+   

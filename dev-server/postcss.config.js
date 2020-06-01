@@ -1,17 +1,14 @@
 const cssnano = require("cssnano");
 
-console.log(`⚡ POST CSS: ${process.env.NODE_ENV} mode`);
+console.log("⚡ POST CSS - prefix and purge");
 
 module.exports = {
   plugins: [
+    require('postcss-import'),
     require("tailwindcss"),
-    ...(process.env.NODE_ENV === "production"
-      ? [
-          cssnano({
-            preset: "default",
-          }),
-        ]
-      : []),
+    cssnano({
+      preset: "default",
+    }),
     require("autoprefixer"),
   ],
 };

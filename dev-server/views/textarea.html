@@ -1,0 +1,41 @@
+{% extends "./includes/template.html" %}
+      
+{% block content %}
+<!-- CONTENT -->
+<div class="container mx-auto mb-10">
+  <div class="container mx-auto mb-10">
+     <!-- -->
+     <form method="post" autocomplete="off" novalidate="">
+
+       <h1>Text Area</h1>
+
+       <!-- start field -->
+       <h3>Default</h3>
+       <div class="form-group">
+        <label for="name" class="">
+          Your message
+        </label>
+        <textarea class="input focus:shadow-outline w-full lg:w-3/6" id="feedback" name="feedback" rows="8"></textarea>
+      </div>
+      <!-- end field -->
+
+
+      <!-- start field with error -->
+      <h3>With error</h3>
+      <div class="form-group form-group-error">
+        <label for="name" class="">
+          Your message
+        </label>
+        <span class="error-message">
+          Can’t be empty
+        </span>
+        <textarea class="input focus:shadow-outline w-full lg:w-3/6 form-control-error" id="feedback" name="feedback" rows="8"></textarea>
+      </div>
+       <!-- end field with error -->
+    </form>
+  <!-- end -->
+</div>
+
+{% endblock %}
+      
+   

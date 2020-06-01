@@ -1,0 +1,71 @@
+{% extends "./includes/template.html" %} {% block content %}
+<!-- CONTENT -->
+<div class="container mx-auto mb-10">
+  <div class="container mx-auto mb-10">
+    <!-- -->
+    <form method="post" autocomplete="off" novalidate="">
+      <h1>Checkbox</h1>
+
+      <h3>Default</h3>
+      <!-- start field -->
+      <div id="notify_type" class="form-group">
+        <label>How should we notify you?</label>
+        <div>
+          <label class="inline-flex items-center">
+            <input checked type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Email</span>
+          </label>
+        </div>
+        <div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Text Message</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Letter</span>
+          </label>
+        </div>
+      </div>
+      <!-- end field -->
+
+      <!-- start field with error -->
+      <h3>With error</h3>
+
+      <div id="notify_type" class="form-group form-group-error">
+        <label>How should we notify you?</label>
+        <span class="error-message">
+          Can’t be empty
+        </span>
+        <div>
+          <label class="inline-flex items-center">
+            <input checked type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Email</span>
+          </label>
+        </div>
+        <div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Text Message</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-4">Letter</span>
+          </label>
+        </div>
+      </div>
+      <!-- end field -->
+      
+      <!-- end field with error -->
+    </form>
+    <!-- end -->
+  </div>
+
+  {% endblock %}
+</div>
