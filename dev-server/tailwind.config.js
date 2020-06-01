@@ -63,7 +63,7 @@ module.exports = {
     },
   },
   purge: {
-    content: ["./src/**/*.html"],
+    content: ["./views/**/*.html"],
   },
   plugins: [require("@tailwindcss/custom-forms")],
 };
