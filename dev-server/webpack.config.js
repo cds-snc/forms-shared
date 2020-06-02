@@ -1,5 +1,4 @@
 const path = require("path");
-const { debug } = require("./util/debug");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const local = path.resolve(__dirname, "public/dist");

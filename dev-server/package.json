@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node index.js",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development node index.js",
     "watch": "browser-sync start --proxy=localhost:8000 --files='public/build/*.css, **/*.html' --ignore=node_modules --reload-delay 1 --no-ui --no-notify",
     "build": "NODE_ENV=production webpack --mode production",
     "copy": "node publish"
