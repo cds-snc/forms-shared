@@ -111,10 +111,6 @@ input[type="text"] {
   @apply mb-2;
 }
 
-select {
-  @apply h-12;
-}
-
 .banner {
   @apply border-l-4 border-solid border-blue-400 bg-blue-200 p-5 mb-10
 }
