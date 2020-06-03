@@ -19,4 +19,6 @@ RUN  tar cf - --one-file-system -C /usr/src/wordpress . | tar xf -
 COPY wordpress .
 RUN chown -R www-data:www-data /var/www/html
 
+## 
+
 CMD ["apache2-foreground"]

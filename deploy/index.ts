@@ -4,7 +4,6 @@ import * as ec2 from "@aws-cdk/aws-ec2";
 import * as rds from "@aws-cdk/aws-rds";
 import * as ecs_patterns from "@aws-cdk/aws-ecs-patterns";
 import * as ecs from "@aws-cdk/aws-ecs";
-
 import * as path from "path";
 
 const DB_PORT = Number(process.env["DB_PORT"]) as number;
@@ -32,9 +31,9 @@ class WordpressStack extends cdk.Stack {
       maxAzs: 2,
     });
 
-    const wordpressSg = new ec2.SecurityGroup(this, "wp-sg", {
+    const wordpressSg = new ec2.SecurityGroup(this, "fwp-sg", {
       vpc: vpc,
-      description: "Wordpress security group",
+      description: "FormsWPStack SecurityGroup",
     });
 
     new rds.DatabaseInstance(this, "db", {
@@ -101,10 +100,10 @@ class WordpressStack extends cdk.Stack {
   }
 }
 const app = new cdk.App();
-new WordpressStack(app, "FormsStackWP", {
+new WordpressStack(app, "FormsWPStack", {
   env: {
     account: process.env.AWS_ACCOUNT_ID,
     region: process.env.AWS_REGION,
   },
-  description: "Fargate WordPress deployment",
+  description: "Fargate WP deployment 2020",
 });
