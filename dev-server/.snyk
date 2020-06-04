@@ -1,0 +1,10 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - cypress > lodash:
+        patched: '2020-06-04T19:17:53.507Z'
+    - cypress-image-snapshot > jest-image-snapshot > lodash:
+        patched: '2020-06-04T19:17:53.507Z'
