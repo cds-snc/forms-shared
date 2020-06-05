@@ -1,16 +1,13 @@
 /*
 https://medium.com/norwich-node-user-group/visual-regression-testing-with-cypress-io-and-cypress-image-snapshot-99c520ccc595
+https://github.com/cypress-io/cypress/issues/3324
+https://docs.cypress.io/api/commands/viewport.html#Arguments
+
+Clock
+https://docs.cypress.io/guides/tooling/visual-testing.html#Timestamps
 */
-
-const screenHeight = 1200;
-
-const sizes = [
-  [640, screenHeight],
-  [768, screenHeight],
-  [1024, screenHeight],
-  [1280, screenHeight],
-  [1920, screenHeight],
-];
+import { onlyOn } from "@cypress/skip-test";
+const sizes = ["iphone-6", "ipad-2", "macbook-13", "macbook-15"];
 
 const pages = [
   "textfield",
@@ -25,10 +22,12 @@ const pages = [
 describe("Visual regression tests", () => {
   sizes.forEach((size) => {
     pages.forEach((page) => {
-      it(`Should match previous screenshot '${page} page' when '${size}'`, () => {
-        cy.setResolution(size);
-        cy.visit(`/${page}`);
-        cy.matchImageSnapshot();
+      onlyOn("headless", () => {
+        it(`it should render "${page}" on "${size}" screen'`, () => {
+          cy.setResolution(size);
+          cy.visit(`/${page}`);
+          cy.matchImageSnapshot();
+        }); //
       });
     });
   });

@@ -8,17 +8,20 @@
     "dev": "NODE_ENV=development node index.js",
     "watch": "browser-sync start --proxy=localhost:8000 --files='public/build/*.css, **/*.html' --ignore=node_modules --reload-delay 1 --no-ui --no-notify",
     "build": "NODE_ENV=production webpack --mode production",
-    "copy:styles": "node publish", 
-    "cy": "start-server-and-test cy:serve http://localhost:8000 cy:open",
+    "copy:styles": "node publish",
+    "cy:update-visuals": "npm run cy:clean && start-server-and-test start http://localhost:8000 cy:update-snapshots:script",
+    "cy:cli": "start-server-and-test cy:serve http://localhost:8000 cy:cli:script",
+    "cy:clean": "rimraf cypress/snapshots/*",
     "cy:serve": "NODE_ENV=production node index.js",
-    "cy:open": "cypress open",
-    "cy:cli": "start-server-and-test cy:serve http://localhost:8000",
-    "cy:update-snapshots": "cypress run --env updateSnapshots=true",
-    "cy:update-visuals": "start-server-and-test start http://localhost:8000 cy:update-snapshots"
+    "cy:browser": "start-server-and-test cy:serve http://localhost:8000 cy:browser:script",
+    "cy:browser:script": "cypress open",
+    "cy:cli:script": "cypress run",
+    "cy:update-snapshots:script": "cypress run --env updateSnapshots=true"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@cypress/skip-test": "^2.5.0",
     "@tailwindcss/custom-forms": "^0.2.1",
     "autoprefixer": "^9.8.0",
     "chokidar": "^3.4.0",
@@ -34,7 +37,7 @@
     "nunjucks": "^3.2.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
-    "rimraf": "^3.0.2",
+    "slug": "^3.3.0",
     "style-loader": "^1.2.1",
     "svg-url-loader": "^6.0.0",
     "tailwindcss": "^1.4.6",
@@ -43,10 +46,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "cypress": "^4.7.0",
-    "cypress-axe": "^0.5.3",
+    "cypress-axe": "^0.8.1",
     "cypress-image-snapshot": "^3.1.1",
-    "start-server-and-test": "^1.10.11",
+    "start-server-and-test": "^1.11.0",
     "browser-sync": "^2.26.7"
   }
 }
