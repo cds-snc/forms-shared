@@ -4,7 +4,6 @@ const express = require("express");
 const path = require("path");
 const nunjucks = require("nunjucks");
 const main = require("./routes/main");
-
 const port = process.env.PORT || 8000;
 
 const start = () => {
