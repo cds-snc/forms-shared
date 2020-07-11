@@ -24,7 +24,7 @@
   "dependencies": {
     "@cypress/skip-test": "^2.5.0",
     "@tailwindcss/custom-forms": "^0.2.1",
-    "autoprefixer": "^9.8.0",
+    "autoprefixer": "^9.8.1",
     "chokidar": "^3.4.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.2",
