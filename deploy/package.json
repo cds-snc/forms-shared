@@ -14,13 +14,13 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-autoscaling": "^1.45.0",
-    "@aws-cdk/aws-ec2": "^1.45.0",
-    "@aws-cdk/aws-ecs": "^1.45.0",
-    "@aws-cdk/aws-ecs-patterns": "^1.45.0",
-    "@aws-cdk/aws-elasticloadbalancingv2": "^1.45.0",
-    "@aws-cdk/aws-rds": "^1.45.0",
-    "@aws-cdk/core": "^1.45.0",
+    "@aws-cdk/aws-autoscaling": "^1.46.0",
+    "@aws-cdk/aws-ec2": "^1.46.0",
+    "@aws-cdk/aws-ecs": "^1.46.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.46.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.46.0",
+    "@aws-cdk/aws-rds": "^1.46.0",
+    "@aws-cdk/core": "^1.46.0",
     "source-map-support": "^0.5.19"
   }
 }
