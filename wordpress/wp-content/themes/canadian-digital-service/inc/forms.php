@@ -10,8 +10,8 @@ if (!is_admin()) {
         if ($field->failed_validation) {
             $class .= ' form-group-error';
         }
-
-        return sprintf('<div id="%s" class="%s" style="%s">{FIELD_CONTENT}</div>', $field_id, $class, $style);
+// Change `div` for `li`
+        return sprintf('<li id="%s" class="%s" style="%s">{FIELD_CONTENT}</li>', $field_id, $class, $style);
     }
 }
 
@@ -162,19 +162,24 @@ if (!is_admin()) {
             $checkboxes = $xpath->query('//ul[contains(@class, "gfield_checkbox")]//li//input[@type="checkbox"]');
             $checkboxes_out = '';
             $label = $xpath->query('//label', $checkboxes->item(0));
-            $checkboxes_out = '<label>'.$label->item(0)->nodeValue.'</label>';
+            // wrap checkbox group into a fieldset
+            $checkboxes_out = '<fieldset><legend>'.$label->item(0)->nodeValue.'</legend><ul>';
 
             foreach ($checkboxes as $checkboxItem) {
-                $checkboxes_out .= '<div>';
+                // Change `div` for `li`
+                $checkboxes_out .= '<li>';
                 $checkboxes_out .= "<label class='inline-flex items-center'>";
                 $label = $checkboxItem->nextSibling->nodeValue;
                 $checkboxItem->setAttribute('class', 'text-blue form-checkbox h-6 w-6');
                 $checkboxes_out .= $dom->saveHTML($checkboxItem);
                 $checkboxes_out .= "<span class='ml-3 text-lg'>".$label.'</span>';
                 $checkboxes_out .= '</label>';
-                $checkboxes_out .= '</div>';
+                // Change `div` for `li`
+                $checkboxes_out .= '</li>';
             }
 
+            // wrap checkbox group into a fieldset
+            $checkboxes_out .= '</ul></fieldset>';
             $content = $checkboxes_out;
         }
 
@@ -188,7 +193,8 @@ if (!is_admin()) {
             $radios = $xpath->query('//ul[contains(@class, "gfield_radio")]//li');
             $radio_out = '';
             $label = $xpath->query('//label', $radios->item(0));
-            $radio_out = '<label>'.$label->item(0)->nodeValue.'</label>';
+            // wrap radio buttons group into a fieldset
+            $radio_out = '<fieldset><legend>'.$label->item(0)->nodeValue.'</legend><ul>';
 
             foreach ($radios as $radioItem) {
 
@@ -200,13 +206,13 @@ if (!is_admin()) {
                     $class .=" mr-10";
                 }
 
-                $radio_out .= '<div>';
+                $radio_out .= '<li>';
                 $radio_out .= "<label class='inline-flex items-center'>";
                 $label = $radioItem->lastChild;
                 $radio = $radioItem->firstChild;
                 $radio->setAttribute('class', $class);
                 $radio_out .= $dom->saveHTML($radio);
-                
+
                 $radio_out .= $other;
 
                 if(!$other){
@@ -214,9 +220,11 @@ if (!is_admin()) {
                 }
                 
                 $radio_out .= '</label>';
-                $radio_out .= '</div>';
+                $radio_out .= '</li>';
             }
 
+            // wrap checkbox group into a fieldset
+            $radio_out .= '</ul></fieldset>';
             $content = $radio_out;
             
         }
